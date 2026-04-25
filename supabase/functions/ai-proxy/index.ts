@@ -26,7 +26,7 @@ Deno.serve(async (req) => {
     // Map deprecated names to supported ones if necessary.
     let model: string = payload.model || DEFAULT_MODEL;
     // Map deprecated v1beta model names to currently supported ones
-    if (model === "gemini-1.5-flash" || model === "gemini-1.5-pro") {
+    if (model === "gemini-1.5-flash" || model === "gemini-1.5-pro" || model === "gemini-2.0-flash") {
       model = DEFAULT_MODEL;
     }
     // Validate key format — Google API keys start with "AIza"
