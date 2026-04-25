@@ -1,47 +1,615 @@
 import { Link } from "react-router-dom";
-import { Wordmark } from "@/components/Wordmark";
+import { useEffect } from "react";
+import { ParticlesLayer } from "@/components/ParticlesLayer";
+
+const VIDEO_URL =
+  "https://cdn.coverr.co/videos/coverr-typing-on-a-laptop-in-a-dark-room-7185/1080p.mp4";
+
+const COLORS = {
+  bg: "#080808",
+  bgAlt: "#0D0D0D",
+  card: "#111111",
+  border: "#1E1E1E",
+  fg: "#F0EDE8",
+  muted: "#A09A92",
+  body: "#6B6560",
+  faint: "#5A5550",
+};
+
+const FONT_SERIF = "'Instrument Serif', serif";
+const FONT_SANS = "'Instrument Sans', sans-serif";
+
+function smoothScrollTo(id: string) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function CtaButton({
+  children,
+  to = "/auth",
+}: {
+  children: React.ReactNode;
+  to?: string;
+}) {
+  return (
+    <Link
+      to={to}
+      className="inline-block transition-colors duration-200"
+      style={{
+        fontFamily: FONT_SANS,
+        fontSize: 13,
+        textTransform: "uppercase",
+        letterSpacing: "2px",
+        color: COLORS.fg,
+        border: `1px solid ${COLORS.fg}`,
+        padding: "14px 32px",
+        borderRadius: 2,
+        background: "transparent",
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.background = COLORS.fg;
+        (e.currentTarget as HTMLElement).style.color = COLORS.bg;
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.background = "transparent";
+        (e.currentTarget as HTMLElement).style.color = COLORS.fg;
+      }}
+    >
+      {children}
+    </Link>
+  );
+}
 
 const Index = () => {
-  return (
-    <div className="min-h-screen bg-background flex flex-col">
-      {/* Top bar */}
-      <header className="flex items-center justify-between px-10 py-8">
-        <Wordmark size={22} />
-        <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-          EU GDPR Compliance Platform
-        </span>
-      </header>
+  useEffect(() => {
+    const prev = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "smooth";
+    return () => {
+      document.documentElement.style.scrollBehavior = prev;
+    };
+  }, []);
 
-      {/* Hero */}
-      <main className="flex-1 flex items-center justify-center px-6">
-        <div className="max-w-[920px] text-center animate-fade-in-slow">
-          <h1 className="font-serif text-[52px] sm:text-[68px] md:text-[80px] leading-[1.02] tracking-[-0.02em] font-semibold">
+  return (
+    <div style={{ background: COLORS.bg, color: COLORS.fg, minHeight: "100vh" }}>
+      {/* NAVBAR */}
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6"
+        style={{ background: "transparent" }}
+      >
+        <button
+          onClick={() => smoothScrollTo("hero")}
+          style={{
+            fontFamily: FONT_SERIF,
+            fontSize: 20,
+            color: COLORS.fg,
+            background: "transparent",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          BreachGuard
+        </button>
+        <div className="flex items-center gap-8">
+          <button
+            onClick={() => smoothScrollTo("about")}
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 12,
+              textTransform: "uppercase",
+              letterSpacing: "2px",
+              color: COLORS.muted,
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            About
+          </button>
+          <Link
+            to="/auth"
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 12,
+              textTransform: "uppercase",
+              letterSpacing: "2px",
+              color: COLORS.muted,
+              textDecoration: "none",
+            }}
+          >
+            Report a Breach
+          </Link>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section
+        id="hero"
+        className="relative w-full overflow-hidden"
+        style={{ height: "100vh" }}
+      >
+        {/* Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ zIndex: 1 }}
+        >
+          <source src={VIDEO_URL} type="video/mp4" />
+        </video>
+        {/* Overlay */}
+        <div
+          className="absolute inset-0"
+          style={{ background: "rgba(8, 8, 8, 0.72)", zIndex: 2 }}
+        />
+        {/* Particles */}
+        <ParticlesLayer className="absolute inset-0 w-full h-full" />
+        <div
+          className="absolute inset-0"
+          style={{ zIndex: 3, pointerEvents: "none" }}
+        >
+          <ParticlesLayer className="absolute inset-0 w-full h-full" />
+        </div>
+
+        {/* Hero content */}
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center text-center px-6"
+          style={{ zIndex: 4 }}
+        >
+          <div
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 11,
+              textTransform: "uppercase",
+              letterSpacing: "3px",
+              color: COLORS.muted,
+              marginBottom: 28,
+            }}
+          >
+            EU GDPR Compliance Platform
+          </div>
+          <h1
+            style={{
+              fontFamily: FONT_SERIF,
+              fontSize: "clamp(40px, 8vw, 72px)",
+              lineHeight: 1.1,
+              color: COLORS.fg,
+              fontWeight: 400,
+              letterSpacing: "-0.01em",
+              margin: 0,
+            }}
+          >
             Data Breach Response,
             <br />
-            <span className="font-serif font-light text-muted-foreground/90">Handled with Precision.</span>
+            Handled with Precision.
           </h1>
-
-          <p className="mt-8 text-[15px] sm:text-base text-muted-foreground max-w-[560px] mx-auto leading-relaxed">
-            A secure, AI-guided platform for EU-compliant incident response.
-            Built for legal and security teams.
+          <p
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 17,
+              color: COLORS.body,
+              maxWidth: 520,
+              margin: "28px auto 0",
+              lineHeight: 1.6,
+            }}
+          >
+            An AI-guided platform for EU-compliant incident response. Built for
+            legal and security teams operating under GDPR and NIS2.
           </p>
-
-          <div className="mt-14">
-            <Link
-              to="/auth"
-              className="group inline-block border border-primary text-primary px-10 py-4 text-xs uppercase tracking-[0.2em] hover:bg-primary hover:text-primary-foreground transition-colors duration-200 rounded-sm"
-            >
-              Report a Breach
-            </Link>
+          <div style={{ marginTop: 40 }}>
+            <CtaButton to="/auth">Report a Breach →</CtaButton>
+          </div>
+          <div
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 11,
+              color: COLORS.faint,
+              marginTop: 24,
+            }}
+          >
+            Powered by Otto Schmidt Legal Intelligence × OpenAI
           </div>
         </div>
-      </main>
 
-      {/* Footer */}
-      <footer className="px-10 py-8 text-center">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-          Powered by Otto Schmidt Legal Intelligence
+        {/* Scroll indicator */}
+        <div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          style={{ zIndex: 4 }}
+        >
+          <div
+            style={{
+              width: 1,
+              height: 40,
+              background: COLORS.muted,
+              opacity: 0.5,
+              animation: "scroll-fade 2s ease-in-out infinite",
+            }}
+          />
+          <div
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 10,
+              textTransform: "uppercase",
+              letterSpacing: "2px",
+              color: COLORS.muted,
+              opacity: 0.6,
+            }}
+          >
+            scroll
+          </div>
+        </div>
+        <style>{`
+          @keyframes scroll-fade {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.7; }
+          }
+        `}</style>
+      </section>
+
+      {/* SECTION 2 — FEATURE CARDS */}
+      <section style={{ background: COLORS.bg, padding: "120px 24px" }}>
+        <div
+          style={{
+            maxWidth: 1000,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: 24,
+          }}
+        >
+          {[
+            {
+              n: "01",
+              title: "Structured Incident Intake",
+              body: "ARIA guides your team through every detail of a breach — calmly, precisely, and without legal jargon.",
+            },
+            {
+              n: "02",
+              title: "Notifiability Assessment",
+              body: "Instant AI analysis determines whether GDPR Art. 33 or NIS2 notification obligations apply — with legal reasoning grounded in Otto Schmidt.",
+            },
+            {
+              n: "03",
+              title: "DPO Command Centre",
+              body: "A complete dashboard for your Data Protection Officer — prioritized incidents, draft communications, and a full audit trail.",
+            },
+          ].map((c) => (
+            <div
+              key={c.n}
+              style={{
+                background: COLORS.card,
+                border: `1px solid ${COLORS.border}`,
+                padding: 36,
+                borderRadius: 4,
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: FONT_SANS,
+                  fontSize: 11,
+                  letterSpacing: "2px",
+                  color: COLORS.faint,
+                  marginBottom: 18,
+                }}
+              >
+                {c.n}
+              </div>
+              <h3
+                style={{
+                  fontFamily: FONT_SERIF,
+                  fontSize: 22,
+                  color: COLORS.fg,
+                  fontWeight: 400,
+                  margin: 0,
+                  marginBottom: 14,
+                }}
+              >
+                {c.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: FONT_SANS,
+                  fontSize: 14,
+                  color: COLORS.body,
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}
+              >
+                {c.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION 3 — ABOUT */}
+      <section
+        id="about"
+        style={{ background: COLORS.bgAlt, padding: "120px 24px" }}
+      >
+        <div
+          style={{
+            maxWidth: 1100,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: 64,
+            alignItems: "start",
+          }}
+        >
+          <div>
+            <div
+              style={{
+                fontFamily: FONT_SANS,
+                fontSize: 11,
+                textTransform: "uppercase",
+                letterSpacing: "3px",
+                color: COLORS.muted,
+                marginBottom: 24,
+              }}
+            >
+              About BreachGuard
+            </div>
+            <h2
+              style={{
+                fontFamily: FONT_SERIF,
+                fontSize: 42,
+                color: COLORS.fg,
+                fontWeight: 400,
+                lineHeight: 1.15,
+                margin: 0,
+                marginBottom: 28,
+              }}
+            >
+              Built for the critical first hours.
+            </h2>
+            <p
+              style={{
+                fontFamily: FONT_SANS,
+                fontSize: 16,
+                color: COLORS.body,
+                lineHeight: 1.8,
+                marginBottom: 20,
+              }}
+            >
+              BreachGuard was created at the Munich Hacking Legal 2026
+              hackathon in response to a real gap in EU compliance tooling.
+              When a data breach occurs, organizations lose precious hours to
+              confusion, scattered communication, and manual processes.
+              BreachGuard changes that — combining AI intelligence with EU
+              legal expertise to guide teams from discovery to notification
+              with confidence.
+            </p>
+            <p
+              style={{
+                fontFamily: FONT_SANS,
+                fontSize: 16,
+                color: COLORS.body,
+                lineHeight: 1.8,
+              }}
+            >
+              Built on the Otto Schmidt Legal Data Hub, every recommendation
+              BreachGuard makes is grounded in curated German and EU legal
+              content — not hallucination.
+            </p>
+          </div>
+          <div className="flex flex-col gap-6">
+            {[
+              { stat: "72 hours", desc: "GDPR Art. 33 notification window" },
+              { stat: "27 EU states", desc: "supervisory authority coverage" },
+            ].map((s) => (
+              <div
+                key={s.stat}
+                style={{
+                  background: COLORS.card,
+                  border: `1px solid ${COLORS.border}`,
+                  padding: 36,
+                  borderRadius: 4,
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: FONT_SERIF,
+                    fontSize: 48,
+                    color: COLORS.fg,
+                    fontWeight: 400,
+                    lineHeight: 1.1,
+                    marginBottom: 10,
+                  }}
+                >
+                  {s.stat}
+                </div>
+                <div
+                  style={{
+                    fontFamily: FONT_SANS,
+                    fontSize: 13,
+                    color: COLORS.body,
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  {s.desc}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 4 — TEAM */}
+      <section style={{ background: COLORS.bg, padding: "120px 24px" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="text-center" style={{ marginBottom: 64 }}>
+            <h2
+              style={{
+                fontFamily: FONT_SERIF,
+                fontSize: 36,
+                color: COLORS.fg,
+                fontWeight: 400,
+                margin: 0,
+                marginBottom: 14,
+              }}
+            >
+              The Team
+            </h2>
+            <div
+              style={{
+                fontFamily: FONT_SANS,
+                fontSize: 14,
+                color: COLORS.body,
+              }}
+            >
+              Built in 24 hours at Munich Hacking Legal 2026
+            </div>
+          </div>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+              gap: 24,
+            }}
+          >
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                style={{
+                  background: COLORS.card,
+                  border: `1px solid ${COLORS.border}`,
+                  padding: 28,
+                  borderRadius: 4,
+                  textAlign: "center",
+                }}
+              >
+                <div
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: "50%",
+                    background: COLORS.border,
+                    margin: "0 auto 20px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: FONT_SERIF,
+                    fontSize: 24,
+                    color: COLORS.muted,
+                  }}
+                >
+                  TM
+                </div>
+                <div
+                  style={{
+                    fontFamily: FONT_SERIF,
+                    fontSize: 18,
+                    color: COLORS.fg,
+                    marginBottom: 8,
+                  }}
+                >
+                  Team Member
+                </div>
+                <div
+                  style={{
+                    fontFamily: FONT_SANS,
+                    fontSize: 12,
+                    textTransform: "uppercase",
+                    letterSpacing: "2px",
+                    color: COLORS.body,
+                    marginBottom: 12,
+                  }}
+                >
+                  Role
+                </div>
+                <div
+                  style={{
+                    fontFamily: FONT_SANS,
+                    fontSize: 13,
+                    color: COLORS.faint,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Background and expertise
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 5 — FINAL CTA */}
+      <section
+        style={{
+          background: COLORS.bg,
+          borderTop: `1px solid ${COLORS.border}`,
+          padding: "120px 24px",
+          textAlign: "center",
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: FONT_SERIF,
+            fontSize: 48,
+            color: COLORS.fg,
+            fontWeight: 400,
+            margin: 0,
+            marginBottom: 16,
+          }}
+        >
+          A breach won't wait.
+        </h2>
+        <p
+          style={{
+            fontFamily: FONT_SANS,
+            fontSize: 16,
+            color: COLORS.body,
+            marginBottom: 36,
+          }}
+        >
+          Neither should your response.
         </p>
+        <CtaButton to="/auth">Begin Incident Report →</CtaButton>
+      </section>
+
+      {/* FOOTER */}
+      <footer
+        style={{
+          background: "#060606",
+          borderTop: "1px solid #141414",
+          padding: 32,
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1200,
+            margin: "0 auto",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: 16,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 12,
+              color: COLORS.body,
+            }}
+          >
+            <span style={{ fontFamily: FONT_SERIF, fontSize: 16, color: COLORS.fg, marginRight: 12 }}>
+              BreachGuard
+            </span>
+            © 2026 Munich Hacking Legal
+          </div>
+          <div
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 12,
+              color: COLORS.faint,
+            }}
+          >
+            Powered by Otto Schmidt × OpenAI × Google Cloud
+          </div>
+        </div>
       </footer>
     </div>
   );
