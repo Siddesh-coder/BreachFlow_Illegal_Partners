@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { ParticlesLayer } from "@/components/ParticlesLayer";
 
+// Primary: user-requested Coverr URL. Fallback: hosted sample (Coverr URL currently 301s).
 const VIDEO_URL =
   "https://cdn.coverr.co/videos/coverr-typing-on-a-laptop-in-a-dark-room-7185/1080p.mp4";
+const VIDEO_FALLBACK =
+  "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_5MB.mp4";
 
 const COLORS = {
   bg: "#080808",
