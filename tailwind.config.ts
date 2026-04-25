@@ -12,8 +12,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        serif: ["-apple-system", "BlinkMacSystemFont", "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Inter", "system-ui", "sans-serif"],
-        sans: ["-apple-system", "BlinkMacSystemFont", "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        serif: ["Cormorant Garamond", "Garamond", "Times New Roman", "serif"],
+        sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Helvetica Neue", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
