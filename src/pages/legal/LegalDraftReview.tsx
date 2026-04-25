@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { format } from "date-fns";
 import { ChevronLeft, Copy, Lock, ShieldAlert, Strikethrough } from "lucide-react";
 import { useApp } from "@/state/AppContext";
+import { ApprovalCard } from "@/components/ApprovalCard";
 import { cn } from "@/lib/utils";
 import type { Notification } from "@/types/incident";
 
@@ -278,6 +279,10 @@ function DraftEditor({
             )}
           </div>
         </div>
+      </div>
+
+      <div className="mt-6">
+        <ApprovalCard notification={draft} />
       </div>
     </div>
   );

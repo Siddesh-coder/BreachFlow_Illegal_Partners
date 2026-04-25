@@ -7,6 +7,7 @@ import type {
   IncidentStatus,
   IndicatorStatus,
   Notification,
+  ProcessStageId,
 } from "@/types/incident";
 import type { SignedInUser } from "@/services/auth";
 import { SEED_AUDIT, SEED_INCIDENTS, SEED_NOTIFICATIONS } from "@/data/seedIncidents";
@@ -28,6 +29,7 @@ interface AppState {
   setIncidentStatus: (id: string, status: IncidentStatus) => void;
   setIndicatorOverride: (incidentId: string, key: string, status: IndicatorStatus) => void;
   addClassification: (c: Omit<Classification, "id" | "ts" | "version">) => Classification;
+  advanceProcessStage: (incidentId: string, to: ProcessStageId, opts?: { actor?: string; overrideReasons?: string[] }) => void;
 
   audit: AuditEvent[];
   addAudit: (e: Omit<AuditEvent, "id" | "ts"> & { ts?: string }) => void;
@@ -124,6 +126,30 @@ export function AppProvider({ children }: { children: ReactNode }) {
         }),
       );
       return created;
+    },
+    advanceProcessStage: (incidentId, to, opts) => {
+      const ts = new Date().toISOString();
+      const order: ProcessStageId[] = ["P0", "P1", "P2", "P3", "P4"];
+      setIncidents((prev) =>
+        prev.map((it) => {
+          if (it.id !== incidentId) return it;
+          const existing = it.process?.stages ?? order.map((id) => ({ id, status: "pending" as const }));
+          const toIdx = order.indexOf(to);
+          const stages = existing.map((s) => {
+            const sIdx = order.indexOf(s.id);
+            if (sIdx < toIdx) {
+              return s.status === "complete"
+                ? s
+                : { ...s, status: "complete" as const, completedAt: s.completedAt ?? ts, completedBy: s.completedBy ?? opts?.actor };
+            }
+            if (sIdx === toIdx) {
+              return { ...s, status: "in_progress" as const, enteredAt: s.enteredAt ?? ts, overrideReasons: opts?.overrideReasons };
+            }
+            return { ...s, status: "pending" as const };
+          });
+          return { ...it, process: { currentStage: to, stages } };
+        }),
+      );
     },
 
     audit,

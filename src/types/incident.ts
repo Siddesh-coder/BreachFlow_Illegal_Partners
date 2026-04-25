@@ -54,6 +54,28 @@ export type Nis2Sector =
   | "Public Administration"
   | "Not Applicable";
 
+// ─── Process Engine (P0–P4) ────────────────────────────────────────────────
+export type ProcessStageId = "P0" | "P1" | "P2" | "P3" | "P4";
+export type ProcessStageStatus = "pending" | "in_progress" | "complete" | "skipped";
+
+export interface ProcessStage {
+  id: ProcessStageId;
+  status: ProcessStageStatus;
+  enteredAt?: string;     // ISO when stage became in_progress
+  completedAt?: string;   // ISO when stage marked complete
+  completedBy?: string;
+  // soft-gate audit: items the stage required that were not done
+  overrideReasons?: string[];
+}
+
+export const PROCESS_STAGE_DEFS: { id: ProcessStageId; title: string; subtitle: string }[] = [
+  { id: "P0", title: "Intake & Triage", subtitle: "Capture facts, assign DPO, set severity" },
+  { id: "P1", title: "Containment", subtitle: "Isolate, preserve evidence, brief Legal" },
+  { id: "P2", title: "Assessment", subtitle: "Indicators reviewed, deadlines tracked" },
+  { id: "P3", title: "Notification", subtitle: "Drafts prepared, Legal release, EM approval" },
+  { id: "P4", title: "Closure", subtitle: "Lessons learned, register entry, archive" },
+];
+
 export interface Incident {
   id: string;                       // BR-2026-XXXX
   reportedAt: string;               // ISO
@@ -85,6 +107,11 @@ export interface Incident {
   recommendations: ActionStep[];
   // Versioned legal classifications (newest first). Created by Legal Counsel.
   classifications?: Classification[];
+  // Process Engine state (in-memory). Defaults derived if missing.
+  process?: {
+    currentStage: ProcessStageId;
+    stages: ProcessStage[];
+  };
 }
 
 export type ClassificationVerdict = "notifiable" | "not_notifiable" | "exempt";
@@ -137,4 +164,9 @@ export interface Notification {
   privileged?: boolean;             // visible to Legal + external counsel only
   privilegedBy?: string;
   privilegedAt?: string;
+  // Two-stage approval (DPO requests → Legal releases → EM approves dispatch)
+  dpoRequestedReleaseAt?: string;
+  dpoRequestedBy?: string;
+  emApprovedAt?: string;
+  emApprovedBy?: string;
 }

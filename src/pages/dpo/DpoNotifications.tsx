@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { format } from "date-fns";
 import { useApp } from "@/state/AppContext";
+import { ApprovalCard } from "@/components/ApprovalCard";
 import { cn } from "@/lib/utils";
 
 const DpoNotifications = () => {
@@ -50,8 +51,11 @@ const DpoNotifications = () => {
               <span className="text-xs font-mono text-muted-foreground text-right">#{n.incidentId}</span>
             </button>
             {open === n.id && (
-              <div className="mt-3 ml-2 mr-2 border border-border bg-card p-5 text-sm whitespace-pre-wrap leading-relaxed rounded-sm animate-fade-in">
-                {n.body}
+              <div className="mt-3 ml-2 mr-2 space-y-4 animate-fade-in">
+                <div className="border border-border bg-card p-5 text-sm whitespace-pre-wrap leading-relaxed rounded-sm">
+                  {n.body}
+                </div>
+                {n.status === "Draft" && <ApprovalCard notification={n} />}
               </div>
             )}
           </div>
