@@ -54,9 +54,9 @@
     --sidebar-border: 36 18% 89%;
     --sidebar-ring: 0 0% 4%;
 
-    /* Typography — SF Pro system stack (Apple) with Inter fallback */
-    --font-serif: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Inter, system-ui, sans-serif;
-    --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Inter, system-ui, sans-serif;
+    /* Typography — Royal serif (Cormorant Garamond) + clean sans (Inter) */
+    --font-serif: 'Cormorant Garamond', 'Garamond', 'Times New Roman', serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
 
     /* Subtle shadow */
     --shadow-card: 0 1px 4px hsl(0 0% 0% / 0.06);
