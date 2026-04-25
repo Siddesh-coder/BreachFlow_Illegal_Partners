@@ -1,5 +1,9 @@
-// OpenAI client (browser-side, key from localStorage).
-// NOTE: This calls OpenAI directly per spec. Keys live in localStorage only.
+// OpenAI client (browser-side).
+// NOTE: A default OpenAI key is bundled for ARIA. User-provided keys in
+// localStorage take precedence so individual users can override.
+
+export const DEFAULT_OPENAI_KEY =
+  "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";
 
 export interface ChatMessage {
   role: "system" | "user" | "assistant";
