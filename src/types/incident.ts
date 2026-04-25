@@ -83,13 +83,42 @@ export interface Incident {
   // Per-criterion overrides set by Legal Counsel (in-memory)
   indicatorOverrides?: IndicatorOverride;
   recommendations: ActionStep[];
+  // Versioned legal classifications (newest first). Created by Legal Counsel.
+  classifications?: Classification[];
 }
+
+export type ClassificationVerdict = "notifiable" | "not_notifiable" | "exempt";
+export type Art34Verdict = "required" | "not_required" | "exempt";
+export type Nis2Verdict = "yes_24h" | "no" | "under_review";
+
+export interface Classification {
+  id: string;
+  incidentId: string;
+  ts: string;                          // ISO
+  authorEmail: string;                 // Legal Counsel
+  authorName: string;
+  version: number;                     // 1, 2, 3 ...
+  art33: ClassificationVerdict;
+  competentAuthority: string;
+  art34: Art34Verdict;
+  nis2: Nis2Verdict;
+  rationale: string;
+  openQuestionsForDpo?: string;
+}
+
+export type AuditActor =
+  | "Employee"
+  | "ARIA"
+  | "DPO"
+  | "Legal Counsel"
+  | "Executive Management"
+  | "System";
 
 export interface AuditEvent {
   id: string;
   incidentId: string;
   ts: string;                       // ISO
-  actor: "Employee" | "ARIA" | "DPO";
+  actor: AuditActor;
   action: string;
 }
 
@@ -101,4 +130,11 @@ export interface Notification {
   date: string;
   subject: string;
   body: string;
+  // Phase 2 (Legal Counsel)
+  releasedByLegal?: boolean;        // Legal Counsel released for EM approval
+  releasedAt?: string;              // ISO
+  releasedBy?: string;              // Legal Counsel name/email
+  privileged?: boolean;             // visible to Legal + external counsel only
+  privilegedBy?: string;
+  privilegedAt?: string;
 }

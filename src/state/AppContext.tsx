@@ -1,5 +1,13 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { ActionStep, AuditEvent, Incident, IncidentStatus, Notification } from "@/types/incident";
+import type {
+  ActionStep,
+  AuditEvent,
+  Classification,
+  Incident,
+  IncidentStatus,
+  IndicatorStatus,
+  Notification,
+} from "@/types/incident";
 import type { SignedInUser } from "@/services/auth";
 import { SEED_AUDIT, SEED_INCIDENTS, SEED_NOTIFICATIONS } from "@/data/seedIncidents";
 
@@ -18,12 +26,15 @@ interface AppState {
   updateIncident: (id: string, patch: Partial<Incident>) => void;
   updateStep: (incidentId: string, stepId: string, patch: Partial<ActionStep>) => void;
   setIncidentStatus: (id: string, status: IncidentStatus) => void;
+  setIndicatorOverride: (incidentId: string, key: string, status: IndicatorStatus) => void;
+  addClassification: (c: Omit<Classification, "id" | "ts" | "version">) => Classification;
 
   audit: AuditEvent[];
   addAudit: (e: Omit<AuditEvent, "id" | "ts"> & { ts?: string }) => void;
 
   notifications: Notification[];
   addNotification: (n: Omit<Notification, "id">) => void;
+  updateNotification: (id: string, patch: Partial<Notification>) => void;
 }
 
 const AppCtx = createContext<AppState | null>(null);
@@ -89,6 +100,31 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ),
     setIncidentStatus: (id, status) =>
       setIncidents((prev) => prev.map((it) => (it.id === id ? { ...it, status } : it))),
+    setIndicatorOverride: (incidentId, key, status) =>
+      setIncidents((prev) =>
+        prev.map((it) =>
+          it.id === incidentId
+            ? { ...it, indicatorOverrides: { ...(it.indicatorOverrides ?? {}), [key]: status } }
+            : it,
+        ),
+      ),
+    addClassification: (c) => {
+      const created: Classification = {
+        ...c,
+        id: crypto.randomUUID(),
+        ts: new Date().toISOString(),
+        version: 1, // computed below from current state
+      };
+      setIncidents((prev) =>
+        prev.map((it) => {
+          if (it.id !== c.incidentId) return it;
+          const existing = it.classifications ?? [];
+          created.version = existing.length + 1;
+          return { ...it, classifications: [created, ...existing] };
+        }),
+      );
+      return created;
+    },
 
     audit,
     addAudit: (e) =>
@@ -100,6 +136,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     notifications,
     addNotification: (n) =>
       setNotifications((prev) => [{ id: crypto.randomUUID(), ...n }, ...prev]),
+    updateNotification: (id, patch) =>
+      setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, ...patch } : n))),
   }), [user, isAnonymous, hasApiKeys, incidents, audit, notifications]);
 
   return <AppCtx.Provider value={value}>{children}</AppCtx.Provider>;

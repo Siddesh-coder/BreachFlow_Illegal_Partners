@@ -8,7 +8,12 @@ import { ApiSetupModal } from "@/components/ApiSetupModal";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Employee from "./pages/Employee";
-import Legal from "./pages/Legal";
+import LegalLayout from "./pages/legal/LegalLayout";
+import LegalCases from "./pages/legal/LegalCases";
+import LegalCaseDetail from "./pages/legal/LegalCaseDetail";
+import LegalClassification from "./pages/legal/LegalClassification";
+import LegalDraftReview from "./pages/legal/LegalDraftReview";
+import LegalPrivilegeLog from "./pages/legal/LegalPrivilegeLog";
 import DpoLayout from "./pages/dpo/DpoLayout";
 import DpoDashboard from "./pages/dpo/DpoDashboard";
 import DpoIncidents from "./pages/dpo/DpoIncidents";
@@ -32,7 +37,13 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/employee" element={<Employee />} />
-            <Route path="/legal" element={<Legal />} />
+            <Route path="/legal" element={<LegalLayout />}>
+              <Route index element={<LegalCases />} />
+              <Route path="cases/:id" element={<LegalCaseDetail />} />
+              <Route path="classification" element={<LegalClassification />} />
+              <Route path="draft-review" element={<LegalDraftReview />} />
+              <Route path="privilege-log" element={<LegalPrivilegeLog />} />
+            </Route>
             <Route path="/dpo" element={<DpoLayout />}>
               <Route index element={<DpoDashboard />} />
               <Route path="incidents" element={<DpoIncidents />} />
