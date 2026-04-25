@@ -4,15 +4,10 @@ import { format } from "date-fns";
 import { ChevronDown, ChevronUp, Copy, Send } from "lucide-react";
 import { useApp } from "@/state/AppContext";
 import { SeverityBadge } from "@/components/SeverityBadge";
-import { Countdown } from "@/components/Countdown";
+import { IndicatorScoreboard } from "@/components/IndicatorScoreboard";
+import { DeadlinePanel } from "@/components/DeadlinePanel";
 import { cn } from "@/lib/utils";
 import type { ActionStep, IncidentStatus } from "@/types/incident";
-
-const VERDICT_LABEL = {
-  likely: { label: "LIKELY NOTIFIABLE", cls: "text-destructive border-destructive/40 bg-destructive/5" },
-  possibly: { label: "POSSIBLY NOTIFIABLE", cls: "text-warning border-warning/40 bg-warning/5" },
-  not: { label: "NOT NOTIFIABLE", cls: "text-success border-success/40 bg-success/5" },
-} as const;
 
 const DpoIncidentDetail = () => {
   const { id } = useParams();
