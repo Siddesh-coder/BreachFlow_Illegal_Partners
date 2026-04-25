@@ -12,7 +12,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        serif: ["Cormorant Garamond", "Garamond", "Times New Roman", "serif"],
+        serif: ["Jost", "Inter", "system-ui", "sans-serif"],
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Helvetica Neue", "system-ui", "sans-serif"],
       },
       colors: {
