@@ -111,6 +111,7 @@ export const SEED_INCIDENTS: Incident[] = [
     countries: ["Spain", "Netherlands"],
     contained: false,
     additionalNotes: "Investigation ongoing.",
+    cyberInsurance: true,
     severity: "high",
     status: "new",
     aiSummary: "Ransomware on finance share affecting 2,200 records across ES/NL; exfiltration unconfirmed.",
