@@ -222,16 +222,15 @@ const Employee = () => {
         <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Employee Portal</span>
       </header>
 
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-[45%_55%]">
-        {/* LEFT — chat */}
-        <div className="border-r border-border flex flex-col h-[calc(100vh-73px)]">
-          {/* Chat top bar */}
-          <div className="px-8 py-5 border-b border-border flex items-center justify-between">
+      <main className="flex-1 overflow-y-auto">
+        <div className="max-w-[760px] mx-auto px-6 py-10 space-y-10">
+          {/* Chat header */}
+          <div className="flex items-end justify-between">
             <div>
-              <div className="font-serif text-lg leading-none">ARIA</div>
-              <div className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground mt-1">AI Breach Response Agent</div>
+              <div className="font-serif text-2xl leading-none">ARIA</div>
+              <div className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground mt-2">AI Breach Response Agent</div>
             </div>
-            <div className="text-[11px] text-right">
+            <div className="text-[11px]">
               {isAnonymous ? (
                 <span className="text-warning">Reporting anonymously</span>
               ) : user ? (
@@ -240,8 +239,8 @@ const Employee = () => {
             </div>
           </div>
 
-          {/* Chat history (scrollable above input) */}
-          <div ref={chatScrollRef} className="flex-1 overflow-y-auto px-8 py-6 space-y-4">
+          {/* Chat history */}
+          <div ref={chatScrollRef} className="space-y-4 min-h-[240px]">
             {chat.map((t) => (
               <ChatBubble key={t.id} role={t.role}>{t.content}</ChatBubble>
             ))}
@@ -256,24 +255,22 @@ const Employee = () => {
 
           {/* Centered input area */}
           {!submitting && question && (
-            <div className="border-t border-border bg-card px-8 py-8 animate-fade-in">
-              <div className="max-w-[520px] mx-auto">
-                <div className="font-serif text-xl leading-snug mb-6">{question.prompt}</div>
-                <QuestionInput
-                  question={question}
-                  draft={answers}
-                  onAnswer={handleAnswer}
-                />
-              </div>
+            <div className="bg-card border border-border rounded-sm px-8 py-8 animate-fade-in">
+              <div className="font-serif text-xl leading-snug mb-6 text-center">{question.prompt}</div>
+              <QuestionInput
+                question={question}
+                draft={answers}
+                onAnswer={handleAnswer}
+              />
             </div>
           )}
-        </div>
 
-        {/* RIGHT — live summary */}
-        <div className="bg-background p-10 overflow-y-auto h-[calc(100vh-73px)]">
-          <SummaryCard answers={answers} severity={severity} />
+          {/* Incident summary — below the chat */}
+          <div className="pt-2">
+            <SummaryCard answers={answers} severity={severity} />
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
