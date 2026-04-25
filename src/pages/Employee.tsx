@@ -56,9 +56,9 @@ const Employee = () => {
     if (!user && !isAnonymous) navigate("/auth");
   }, [user, isAnonymous, navigate]);
 
-  // After answer streams in, auto-scroll
+  // After answer streams in, auto-scroll the chat list into view
   useEffect(() => {
-    chatScrollRef.current?.scrollTo({ top: chatScrollRef.current.scrollHeight, behavior: "smooth" });
+    chatScrollRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
   }, [chat, ariaThinking]);
 
   // Add the current question to chat the first time it appears
