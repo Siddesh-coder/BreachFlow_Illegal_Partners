@@ -116,15 +116,14 @@ const DpoDashboard = () => {
   );
 };
 
-function Stat({ dot, label, count }: { dot: string; label: string; count: number }) {
+function GaugeCard({ tone, label, count, total }: { tone: "danger" | "warning" | "success"; label: string; count: number; total: number }) {
+  const pct = total > 0 ? Math.round((count / total) * 100) : 0;
   return (
-    <div className="border border-border p-5 rounded-sm">
-      <div className="flex items-center gap-2">
-        <span className={`w-2 h-2 rounded-full ${dot}`} />
-        <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{label}</span>
+    <div className="border border-border p-6 rounded-sm flex flex-col items-center">
+      <Speedometer tone={tone} label={label} count={count} total={total} />
+      <div className="mt-2 text-[11px] text-muted-foreground">
+        {pct}% of this month
       </div>
-      <div className="mt-2 font-serif text-3xl">{count}</div>
-      <div className="text-[11px] text-muted-foreground">incidents</div>
     </div>
   );
 }
