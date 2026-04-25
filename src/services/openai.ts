@@ -1,15 +1,16 @@
-// OpenAI client (browser-side).
-// NOTE: A default OpenAI key is bundled for ARIA. User-provided keys in
-// localStorage take precedence so individual users can override.
+// Gemini client (browser-side).
+// Despite the filename, this module now wraps Google's Gemini API
+// (gemini-1.5-flash). Function names and message shapes are kept stable
+// so the rest of the app (Employee.tsx etc.) does not need to change.
 
 import { ariaSkillDocument } from "@/data/ariaSkillDocument";
 import { legalKnowledge } from "@/data/legalKnowledge";
 import { nis2Knowledge } from "@/data/nis2Knowledge";
 
-export const DEFAULT_OPENAI_KEY =
-  "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";
+export const ARIA_DEFAULT_MODEL = "gemini-1.5-flash";
 
-export const ARIA_DEFAULT_MODEL = "gpt-4o-mini";
+const GEMINI_ENDPOINT = (model: string) =>
+  `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${localStorage.getItem("GEMINI_API_KEY") ?? ""}`;
 
 export interface ChatMessage {
   role: "system" | "user" | "assistant";
@@ -17,7 +18,7 @@ export interface ChatMessage {
 }
 
 function getKey(): string {
-  return localStorage.getItem("OPENAI_API_KEY") || DEFAULT_OPENAI_KEY;
+  return localStorage.getItem("GEMINI_API_KEY") || "";
 }
 
 /* ------------------------------------------------------------------ */
@@ -73,7 +74,41 @@ Do not explain the marker. Do not output JSON yourself — the system will extra
 }
 
 /* ------------------------------------------------------------------ */
-/* Non-streaming completion (kept for legacy / structured extraction) */
+/* Helpers — convert OpenAI-style messages → Gemini request body      */
+/* ------------------------------------------------------------------ */
+
+function toGeminiBody(messages: ChatMessage[], opts?: { jsonMode?: boolean; temperature?: number }) {
+  // Merge all system messages into a single systemInstruction
+  const systemText = messages
+    .filter((m) => m.role === "system")
+    .map((m) => m.content)
+    .join("\n\n");
+
+  // Map remaining turns; Gemini uses 'user' and 'model'
+  const contents = messages
+    .filter((m) => m.role !== "system")
+    .map((m) => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content }],
+    }));
+
+  const body: any = {
+    contents,
+    generationConfig: {
+      temperature: opts?.temperature ?? 0.4,
+    },
+  };
+  if (systemText) {
+    body.systemInstruction = { parts: [{ text: systemText }] };
+  }
+  if (opts?.jsonMode) {
+    body.generationConfig.responseMimeType = "application/json";
+  }
+  return body;
+}
+
+/* ------------------------------------------------------------------ */
+/* Non-streaming completion                                            */
 /* ------------------------------------------------------------------ */
 
 export async function chatCompletion(
@@ -84,32 +119,25 @@ export async function chatCompletion(
   const key = getKey();
   if (!key) return null;
   try {
-    const body: any = {
-      model,
-      messages,
-      temperature: opts?.temperature ?? 0.4,
-    };
-    if (opts?.jsonMode) body.response_format = { type: "json_object" };
-
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    const res = await fetch(GEMINI_ENDPOINT(model), {
       method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
-      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(toGeminiBody(messages, opts)),
     });
     if (!res.ok) {
-      console.warn("[OpenAI] error", res.status, await res.text());
+      console.warn("[Gemini] error", res.status, await res.text());
       return null;
     }
     const data = await res.json();
-    return data?.choices?.[0]?.message?.content ?? null;
+    return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? null;
   } catch (err) {
-    console.warn("[OpenAI] chatCompletion failed", err);
+    console.warn("[Gemini] chatCompletion failed", err);
     return null;
   }
 }
 
 /* ------------------------------------------------------------------ */
-/* Streaming chat completion                                           */
+/* "Streaming" — Gemini non-streaming call surfaced as a single delta */
 /* ------------------------------------------------------------------ */
 
 export async function streamChatCompletion(
@@ -128,60 +156,23 @@ export async function streamChatCompletion(
     return "";
   }
 
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+  const res = await fetch(GEMINI_ENDPOINT(opts.model ?? ARIA_DEFAULT_MODEL), {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
-    body: JSON.stringify({
-      model: opts.model ?? ARIA_DEFAULT_MODEL,
-      messages,
-      temperature: opts.temperature ?? 0.4,
-      stream: true,
-    }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(toGeminiBody(messages, { temperature: opts.temperature })),
     signal: opts.signal,
   });
 
-  if (!res.ok || !res.body) {
+  if (!res.ok) {
     const errText = await res.text().catch(() => "");
-    console.warn("[OpenAI] stream error", res.status, errText);
-    throw new Error(`OpenAI error ${res.status}: ${errText.slice(0, 200)}`);
+    console.warn("[Gemini] error", res.status, errText);
+    throw new Error(`Gemini error ${res.status}: ${errText.slice(0, 200)}`);
   }
 
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = "";
-  let full = "";
-  let done = false;
+  const data = await res.json();
+  const full: string = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
 
-  while (!done) {
-    const { done: streamDone, value } = await reader.read();
-    if (streamDone) break;
-    buffer += decoder.decode(value, { stream: true });
-
-    let nl: number;
-    while ((nl = buffer.indexOf("\n")) !== -1) {
-      let line = buffer.slice(0, nl);
-      buffer = buffer.slice(nl + 1);
-      if (line.endsWith("\r")) line = line.slice(0, -1);
-      if (!line.startsWith("data: ")) continue;
-
-      const payload = line.slice(6).trim();
-      if (payload === "[DONE]") { done = true; break; }
-
-      try {
-        const parsed = JSON.parse(payload);
-        const delta = parsed?.choices?.[0]?.delta?.content;
-        if (typeof delta === "string" && delta.length > 0) {
-          full += delta;
-          opts.onDelta(delta);
-        }
-      } catch {
-        // partial JSON — re-buffer and wait for more
-        buffer = line + "\n" + buffer;
-        break;
-      }
-    }
-  }
-
+  if (full) opts.onDelta(full);
   opts.onDone?.(full);
   return full;
 }
