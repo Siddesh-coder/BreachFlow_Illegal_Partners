@@ -11,12 +11,11 @@ import type {
 } from "@/types/incident";
 import type { SignedInUser } from "@/services/auth";
 import { SEED_AUDIT, SEED_INCIDENTS, SEED_NOTIFICATIONS } from "@/data/seedIncidents";
-import { DEFAULT_OPENAI_KEY } from "@/services/openai";
 
 const DEFAULT_LDH_TOKEN = "sFf4KDTWTAVUKsL6lfdkN7WWlkqoZW0O1fHE6F4I-5k";
 
-// Seed default keys so ARIA works out of the box.
-if (!localStorage.getItem("OPENAI_API_KEY")) localStorage.setItem("OPENAI_API_KEY", DEFAULT_OPENAI_KEY);
+// Seed default LDH token so the legal data hub works out of the box.
+// The Gemini API key must be supplied by the user via the setup modal.
 if (!localStorage.getItem("LDH_TOKEN")) localStorage.setItem("LDH_TOKEN", DEFAULT_LDH_TOKEN);
 
 interface AppState {
@@ -57,7 +56,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return raw ? JSON.parse(raw) : null;
   });
   const [isAnonymous, setIsAnonymous] = useState<boolean>(() => localStorage.getItem(LS_ANON) === "1");
-  const [hasApiKeys, setHasApiKeys] = useState<boolean>(() => Boolean(localStorage.getItem("OPENAI_API_KEY") && localStorage.getItem("LDH_TOKEN")));
+  const [hasApiKeys, setHasApiKeys] = useState<boolean>(() => Boolean(localStorage.getItem("GEMINI_API_KEY") && localStorage.getItem("LDH_TOKEN")));
 
   const [incidents, setIncidents] = useState<Incident[]>(SEED_INCIDENTS);
   const [audit, setAudit] = useState<AuditEvent[]>(SEED_AUDIT);
@@ -89,10 +88,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     },
 
     hasApiKeys,
-    saveApiKeys: (openai, ldh) => {
-      if (openai) localStorage.setItem("OPENAI_API_KEY", openai);
+    saveApiKeys: (gemini, ldh) => {
+      if (gemini) localStorage.setItem("GEMINI_API_KEY", gemini);
       if (ldh) localStorage.setItem("LDH_TOKEN", ldh);
-      setHasApiKeys(Boolean(localStorage.getItem("OPENAI_API_KEY") && localStorage.getItem("LDH_TOKEN")));
+      setHasApiKeys(Boolean(localStorage.getItem("GEMINI_API_KEY") && localStorage.getItem("LDH_TOKEN")));
     },
 
     incidents,
