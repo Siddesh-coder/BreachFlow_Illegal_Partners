@@ -5,7 +5,6 @@ import { useApp } from "@/state/AppContext";
 const DpoSettings = () => {
   const { saveApiKeys, signOutUser, user } = useApp();
   const navigate = useNavigate();
-  const [gemini, setGemini] = useState(localStorage.getItem("GEMINI_API_KEY") ?? "");
   const [ldh, setLdh] = useState(localStorage.getItem("LDH_TOKEN") ?? "");
 
   return (
