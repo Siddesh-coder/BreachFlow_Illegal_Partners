@@ -216,19 +216,20 @@ const Employee = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <header className="flex items-center justify-between px-10 py-6 border-b border-border">
+    <div className="h-screen bg-background flex flex-col overflow-hidden">
+      <header className="flex items-center justify-between px-10 py-4 border-b border-border shrink-0">
         <Wordmark size={20} />
         <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Employee Portal</span>
       </header>
 
-      <main className="flex-1 overflow-y-auto">
-        <div className="max-w-[760px] mx-auto px-6 py-10 space-y-10">
-          {/* Chat header */}
-          <div className="flex items-end justify-between">
+      {/* Single viewport-height column: chat scrolls, input pinned, summary collapsible */}
+      <div className="flex-1 min-h-0 flex flex-col items-center">
+        <div className="w-full max-w-[760px] flex-1 min-h-0 flex flex-col px-6 pt-5 pb-3">
+          {/* Chat header — compact */}
+          <div className="flex items-end justify-between mb-4 shrink-0">
             <div>
-              <div className="font-serif text-2xl leading-none">ARIA</div>
-              <div className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground mt-2">AI Breach Response Agent</div>
+              <div className="font-serif text-xl leading-none">ARIA</div>
+              <div className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground mt-1.5">AI Breach Response Agent</div>
             </div>
             <div className="text-[11px]">
               {isAnonymous ? (
@@ -239,8 +240,8 @@ const Employee = () => {
             </div>
           </div>
 
-          {/* Chat history */}
-          <div ref={chatScrollRef} className="space-y-4 min-h-[240px]">
+          {/* Chat history — internally scrollable */}
+          <div className="flex-1 min-h-0 overflow-y-auto space-y-3 pr-1">
             {chat.map((t) => (
               <ChatBubble key={t.id} role={t.role}>{t.content}</ChatBubble>
             ))}
@@ -251,12 +252,13 @@ const Employee = () => {
                 <span className="typing-dot inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground" />
               </div>
             )}
+            <div ref={chatScrollRef} />
           </div>
 
-          {/* Centered input area */}
+          {/* Pinned input area */}
           {!submitting && question && (
-            <div className="bg-card border border-border rounded-sm px-8 py-8 animate-fade-in">
-              <div className="font-serif text-xl leading-snug mb-6 text-center">{question.prompt}</div>
+            <div className="bg-card border border-border rounded-sm px-6 py-5 mt-4 shrink-0 animate-fade-in">
+              <div className="font-serif text-lg leading-snug mb-4 text-center">{question.prompt}</div>
               <QuestionInput
                 question={question}
                 draft={answers}
@@ -265,12 +267,18 @@ const Employee = () => {
             </div>
           )}
 
-          {/* Incident summary — below the chat */}
-          <div className="pt-2">
-            <SummaryCard answers={answers} severity={severity} />
-          </div>
+          {/* Incident summary — collapsible, below input, doesn't steal vertical space */}
+          <details className="mt-3 shrink-0 group">
+            <summary className="cursor-pointer text-[11px] uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground transition-colors flex items-center justify-between border-t border-border pt-3">
+              <span>Incident Summary</span>
+              <span className="text-[10px] group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <div className="mt-3 max-h-[40vh] overflow-y-auto">
+              <SummaryCard answers={answers} severity={severity} />
+            </div>
+          </details>
         </div>
-      </main>
+      </div>
     </div>
   );
 };
