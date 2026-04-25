@@ -6,6 +6,7 @@ import { useApp } from "@/state/AppContext";
 import { SeverityBadge } from "@/components/SeverityBadge";
 import { IndicatorScoreboard } from "@/components/IndicatorScoreboard";
 import { DeadlinePanel } from "@/components/DeadlinePanel";
+import { ProcessPanel } from "@/components/ProcessPanel";
 import { cn } from "@/lib/utils";
 import type { ActionStep, IncidentStatus } from "@/types/incident";
 
@@ -77,7 +78,12 @@ const DpoIncidentDetail = () => {
         </div>
       </section>
 
-      {/* Section 2 — Deadline panel */}
+      {/* Section 2 — Process Engine */}
+      <section className="mt-10">
+        <ProcessPanel incident={incident} />
+      </section>
+
+      {/* Section 3 — Deadline panel */}
       <section className="mt-10">
         <DeadlinePanel incident={incident} />
       </section>
