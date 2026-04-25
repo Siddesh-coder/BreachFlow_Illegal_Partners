@@ -206,7 +206,7 @@ Return JSON with EXACTLY this shape:
             content: `Transcript:\n\n${transcript}\n\nReturn JSON only.`,
           },
         ],
-        "gpt-4o-mini",
+        "gemini-1.5-flash",
         { jsonMode: true, temperature: 0.1 },
       );
       if (raw) parsed = JSON.parse(raw);
