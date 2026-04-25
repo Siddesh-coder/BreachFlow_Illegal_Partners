@@ -56,7 +56,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return raw ? JSON.parse(raw) : null;
   });
   const [isAnonymous, setIsAnonymous] = useState<boolean>(() => localStorage.getItem(LS_ANON) === "1");
-  const [hasApiKeys, setHasApiKeys] = useState<boolean>(() => Boolean(localStorage.getItem("GEMINI_API_KEY") && localStorage.getItem("LDH_TOKEN")));
+  // Gemini key now lives server-side in Lovable Cloud secrets.
+  // Only the LDH token still needs to be in the browser.
+  const [hasApiKeys, setHasApiKeys] = useState<boolean>(() => Boolean(localStorage.getItem("LDH_TOKEN")));
 
   const [incidents, setIncidents] = useState<Incident[]>(SEED_INCIDENTS);
   const [audit, setAudit] = useState<AuditEvent[]>(SEED_AUDIT);
@@ -89,9 +91,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     hasApiKeys,
     saveApiKeys: (gemini, ldh) => {
+      // gemini arg kept for API compatibility but is ignored — the key now
+      // lives server-side in Lovable Cloud secrets.
       if (gemini) localStorage.setItem("GEMINI_API_KEY", gemini);
       if (ldh) localStorage.setItem("LDH_TOKEN", ldh);
-      setHasApiKeys(Boolean(localStorage.getItem("GEMINI_API_KEY") && localStorage.getItem("LDH_TOKEN")));
+      setHasApiKeys(Boolean(localStorage.getItem("LDH_TOKEN")));
     },
 
     incidents,

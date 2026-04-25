@@ -5,7 +5,6 @@ import { useApp } from "@/state/AppContext";
 const DpoSettings = () => {
   const { saveApiKeys, signOutUser, user } = useApp();
   const navigate = useNavigate();
-  const [gemini, setGemini] = useState(localStorage.getItem("GEMINI_API_KEY") ?? "");
   const [ldh, setLdh] = useState(localStorage.getItem("LDH_TOKEN") ?? "");
 
   return (
@@ -14,15 +13,17 @@ const DpoSettings = () => {
 
       <section className="mt-10 bg-card border border-border shadow-card p-8 rounded-sm">
         <h2 className="font-serif text-xl">API Keys</h2>
-        <p className="text-xs text-muted-foreground mt-1">Stored locally in your browser only.</p>
+        <p className="text-xs text-muted-foreground mt-1">
+          ARIA's Gemini key is hosted securely in Lovable Cloud — no key needed here.
+          Other tokens are stored locally in your browser only.
+        </p>
 
         <div className="mt-8 space-y-6">
-          <Field label="Gemini API Key" value={gemini} onChange={setGemini} />
           <Field label="Otto Schmidt API Token" value={ldh} onChange={setLdh} />
         </div>
 
         <button
-          onClick={() => saveApiKeys(gemini.trim(), ldh.trim())}
+          onClick={() => saveApiKeys("", ldh.trim())}
           className="mt-8 bg-primary text-primary-foreground px-6 py-2.5 text-xs uppercase tracking-[0.18em] rounded-sm hover:bg-primary/90"
         >
           Save Keys
