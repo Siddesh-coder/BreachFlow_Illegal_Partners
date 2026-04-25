@@ -4,7 +4,7 @@ import { useApp } from "@/state/AppContext";
 export function ApiSetupModal() {
   const { hasApiKeys, saveApiKeys } = useApp();
   const [open, setOpen] = useState(!hasApiKeys);
-  const [openai, setOpenai] = useState("");
+  const [gemini, setGemini] = useState("");
   const [ldh, setLdh] = useState("sFf4KDTWTAVUKsL6lfdkN7WWlkqoZW0O1fHE6F4I-5k");
 
   useEffect(() => {
@@ -23,10 +23,10 @@ export function ApiSetupModal() {
 
         <div className="mt-10 space-y-8">
           <Field
-            label="OpenAI API Key"
-            value={openai}
-            onChange={setOpenai}
-            placeholder="sk-..."
+            label="Gemini API Key"
+            value={gemini}
+            onChange={setGemini}
+            placeholder="AIza..."
             type="password"
           />
           <Field
@@ -40,10 +40,10 @@ export function ApiSetupModal() {
 
         <button
           onClick={() => {
-            saveApiKeys(openai.trim(), ldh.trim());
+            saveApiKeys(gemini.trim(), ldh.trim());
             setOpen(false);
           }}
-          disabled={!openai.trim() || !ldh.trim()}
+          disabled={!gemini.trim() || !ldh.trim()}
           className="mt-10 w-full bg-primary text-primary-foreground py-3 text-xs uppercase tracking-[0.18em] hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded-sm"
         >
           Activate BreachGuard

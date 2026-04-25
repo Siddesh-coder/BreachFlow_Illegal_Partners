@@ -334,7 +334,7 @@ Return JSON with EXACTLY this shape:
               <div>
                 <div className="font-serif text-xl leading-none">ARIA</div>
                 <div className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground mt-1.5">
-                  AI Breach Response Agent · GPT-4o-mini
+                  AI Breach Response Agent · Gemini 1.5 Flash
                 </div>
               </div>
               <div className="text-[11px]">
