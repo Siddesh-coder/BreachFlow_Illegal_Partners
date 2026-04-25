@@ -19,17 +19,17 @@ export function Wordmark({
         <img
           src={logoMark}
           alt="BreachGuard logo"
-          width={size * 1.15}
-          height={size * 1.15}
-          style={{ width: size * 1.15, height: size * 1.15 }}
+          width={size * 1.6}
+          height={size * 1.6}
+          style={{ width: size * 1.6, height: size * 1.6 }}
           className="object-contain"
         />
       )}
       <span
         style={{
           fontFamily: "'Italiana', 'Cormorant Garamond', serif",
-          fontSize: size,
-          letterSpacing: "0.22em",
+          fontSize: size * 0.78,
+          letterSpacing: "0.2em",
           fontWeight: 400,
           textTransform: "uppercase",
           lineHeight: 1,
