@@ -56,7 +56,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return raw ? JSON.parse(raw) : null;
   });
   const [isAnonymous, setIsAnonymous] = useState<boolean>(() => localStorage.getItem(LS_ANON) === "1");
-  const [hasApiKeys, setHasApiKeys] = useState<boolean>(() => Boolean(localStorage.getItem("OPENAI_API_KEY") && localStorage.getItem("LDH_TOKEN")));
+  const [hasApiKeys, setHasApiKeys] = useState<boolean>(() => Boolean(localStorage.getItem("GEMINI_API_KEY") && localStorage.getItem("LDH_TOKEN")));
 
   const [incidents, setIncidents] = useState<Incident[]>(SEED_INCIDENTS);
   const [audit, setAudit] = useState<AuditEvent[]>(SEED_AUDIT);
@@ -88,10 +88,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     },
 
     hasApiKeys,
-    saveApiKeys: (openai, ldh) => {
-      if (openai) localStorage.setItem("OPENAI_API_KEY", openai);
+    saveApiKeys: (gemini, ldh) => {
+      if (gemini) localStorage.setItem("GEMINI_API_KEY", gemini);
       if (ldh) localStorage.setItem("LDH_TOKEN", ldh);
-      setHasApiKeys(Boolean(localStorage.getItem("OPENAI_API_KEY") && localStorage.getItem("LDH_TOKEN")));
+      setHasApiKeys(Boolean(localStorage.getItem("GEMINI_API_KEY") && localStorage.getItem("LDH_TOKEN")));
     },
 
     incidents,
