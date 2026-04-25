@@ -37,7 +37,13 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/employee" element={<Employee />} />
-            <Route path="/legal" element={<Legal />} />
+            <Route path="/legal" element={<LegalLayout />}>
+              <Route index element={<LegalCases />} />
+              <Route path="cases/:id" element={<LegalCaseDetail />} />
+              <Route path="classification" element={<LegalClassification />} />
+              <Route path="draft-review" element={<LegalDraftReview />} />
+              <Route path="privilege-log" element={<LegalPrivilegeLog />} />
+            </Route>
             <Route path="/dpo" element={<DpoLayout />}>
               <Route index element={<DpoDashboard />} />
               <Route path="incidents" element={<DpoIncidents />} />
