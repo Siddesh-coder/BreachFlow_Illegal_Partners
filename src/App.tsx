@@ -8,6 +8,7 @@ import { ApiSetupModal } from "@/components/ApiSetupModal";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Employee from "./pages/Employee";
+import Legal from "./pages/Legal";
 import DpoLayout from "./pages/dpo/DpoLayout";
 import DpoDashboard from "./pages/dpo/DpoDashboard";
 import DpoIncidents from "./pages/dpo/DpoIncidents";
