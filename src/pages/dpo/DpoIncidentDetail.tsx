@@ -4,15 +4,10 @@ import { format } from "date-fns";
 import { ChevronDown, ChevronUp, Copy, Send } from "lucide-react";
 import { useApp } from "@/state/AppContext";
 import { SeverityBadge } from "@/components/SeverityBadge";
-import { Countdown } from "@/components/Countdown";
+import { IndicatorScoreboard } from "@/components/IndicatorScoreboard";
+import { DeadlinePanel } from "@/components/DeadlinePanel";
 import { cn } from "@/lib/utils";
 import type { ActionStep, IncidentStatus } from "@/types/incident";
-
-const VERDICT_LABEL = {
-  likely: { label: "LIKELY NOTIFIABLE", cls: "text-destructive border-destructive/40 bg-destructive/5" },
-  possibly: { label: "POSSIBLY NOTIFIABLE", cls: "text-warning border-warning/40 bg-warning/5" },
-  not: { label: "NOT NOTIFIABLE", cls: "text-success border-success/40 bg-success/5" },
-} as const;
 
 const DpoIncidentDetail = () => {
   const { id } = useParams();
@@ -82,31 +77,24 @@ const DpoIncidentDetail = () => {
         </div>
       </section>
 
-      {/* Section 2 — Notifiability */}
-      {incident.notifiability && (
-        <section className="mt-8">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-6">
-            <div className={cn("border p-8 rounded-sm shadow-card", VERDICT_LABEL[incident.notifiability.verdict].cls)}>
-              <div className="text-[10px] uppercase tracking-[0.18em] opacity-70">GDPR Notifiability Assessment</div>
-              <div className="mt-2 font-serif text-2xl">{VERDICT_LABEL[incident.notifiability.verdict].label}</div>
-              <ul className="mt-5 space-y-2 text-sm leading-relaxed text-foreground">
-                {incident.notifiability.reasoning.map((r, i) => (
-                  <li key={i} className="flex gap-2">
-                    <span className="text-foreground/40">—</span>
-                    <span>{r}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 pt-5 border-t border-current/20">
-                <div className="text-[10px] uppercase tracking-[0.18em] opacity-70">Supervisory Authority</div>
-                <div className="mt-1 text-sm">{incident.notifiability.authority}</div>
-              </div>
-            </div>
+      {/* Section 2 — Deadline panel */}
+      <section className="mt-10">
+        <DeadlinePanel incident={incident} />
+      </section>
 
-            <Countdown from={incident.discoveredAt} />
-          </div>
-        </section>
-      )}
+      {/* Section 3 — Indicator scoreboards (replaces verdict UI) */}
+      <section className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <IndicatorScoreboard incident={incident} regime="gdpr_33" showSources />
+        <IndicatorScoreboard incident={incident} regime="gdpr_34" showSources />
+        {incident.nis2Sector && incident.nis2Sector !== "Not Applicable" && (
+          <IndicatorScoreboard
+            incident={incident}
+            regime="nis2_23"
+            showSources
+            className="lg:col-span-2"
+          />
+        )}
+      </section>
 
       {/* Section 4 — Recommendations */}
       <section className="mt-10">

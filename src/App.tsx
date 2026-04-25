@@ -8,6 +8,7 @@ import { ApiSetupModal } from "@/components/ApiSetupModal";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Employee from "./pages/Employee";
+import Legal from "./pages/Legal";
 import DpoLayout from "./pages/dpo/DpoLayout";
 import DpoDashboard from "./pages/dpo/DpoDashboard";
 import DpoIncidents from "./pages/dpo/DpoIncidents";
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/employee" element={<Employee />} />
+            <Route path="/legal" element={<Legal />} />
             <Route path="/dpo" element={<DpoLayout />}>
               <Route index element={<DpoDashboard />} />
               <Route path="incidents" element={<DpoIncidents />} />

@@ -231,8 +231,10 @@ const Index = () => {
             An AI-guided platform for EU-compliant incident response. Built for
             legal and security teams operating under GDPR and NIS2.
           </p>
-          <div style={{ marginTop: 40 }}>
+          <div style={{ marginTop: 40, display: "flex", flexWrap: "wrap", gap: 14, justifyContent: "center" }}>
             <CtaButton to="/auth">Report a Breach →</CtaButton>
+            <CtaButton to="/auth">I'm a DPO →</CtaButton>
+            <CtaButton to="/auth">I'm Legal Counsel →</CtaButton>
           </div>
           <div
             style={{

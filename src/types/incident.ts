@@ -29,6 +29,31 @@ export interface ActionStep {
   emailSent?: boolean;
 }
 
+export type IndicatorStatus = "matched" | "open" | "unclear";
+
+export interface IndicatorCriterion {
+  id: string;
+  label: string;
+  status: IndicatorStatus;
+  source?: string;          // e.g. "EDPB Guidelines 9/2022"
+  detail?: string;          // optional supporting fact text
+}
+
+export interface IndicatorOverride {
+  // key: regimeId + ":" + criterionId
+  [key: string]: IndicatorStatus;
+}
+
+export type Nis2Sector =
+  | "Healthcare"
+  | "Energy"
+  | "Banking"
+  | "Digital Infrastructure"
+  | "Transport"
+  | "Water"
+  | "Public Administration"
+  | "Not Applicable";
+
 export interface Incident {
   id: string;                       // BR-2026-XXXX
   reportedAt: string;               // ISO
@@ -46,10 +71,17 @@ export interface Incident {
   status: IncidentStatus;
   aiSummary: string;
   notifiability: {
+    // legacy verdict fields kept for back-compat with seed/AI output, but UI no longer renders them
     verdict: "likely" | "possibly" | "not";
     reasoning: string[];
     authority: string;
   } | null;
+  // NIS2 sector — drives whether NIS2 deadlines / indicators are active
+  nis2Sector?: Nis2Sector;
+  // Whether the org carries cyber insurance — drives insurance deadline
+  cyberInsurance?: boolean;
+  // Per-criterion overrides set by Legal Counsel (in-memory)
+  indicatorOverrides?: IndicatorOverride;
   recommendations: ActionStep[];
 }
 
