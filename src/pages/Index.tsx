@@ -15,10 +15,10 @@ const Index = () => {
       {/* Hero */}
       <main className="flex-1 flex items-center justify-center px-6">
         <div className="max-w-[920px] text-center animate-fade-in-slow">
-          <h1 className="font-serif text-[52px] sm:text-[68px] md:text-[80px] leading-[1.02] tracking-[-0.02em] font-light">
+          <h1 className="font-serif text-[52px] sm:text-[68px] md:text-[80px] leading-[1.02] tracking-[-0.02em] font-bold">
             Data Breach Response,
             <br />
-            <em className="italic font-serif font-light text-muted-foreground/90">Handled with Precision.</em>
+            <em className="italic font-serif font-bold text-muted-foreground/90">Handled with Precision.</em>
           </h1>
 
           <p className="mt-8 text-[15px] sm:text-base text-muted-foreground max-w-[560px] mx-auto leading-relaxed">
