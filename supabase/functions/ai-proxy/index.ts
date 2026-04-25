@@ -1,68 +1,38 @@
-// ai-proxy edge function
-// Proxies Gemini API calls server-side so the API key is never exposed to the
-// browser and CORS is handled centrally.
-
+// Gemini proxy edge function — keeps API key server-side and avoids CORS issues.
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+    "authorization, x-client-info, apikey, content-type",
 };
 
-const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY") ?? "";
-
-interface ProxyRequest {
-  model?: string;
-  contents: unknown;
-  systemInstruction?: unknown;
-  generationConfig?: unknown;
-}
+const DEFAULT_MODEL = "gemini-1.5-flash";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
+    return new Response(null, { headers: corsHeaders });
   }
-
-  if (req.method !== "POST") {
-    return new Response(JSON.stringify({ error: "Method not allowed" }), {
-      status: 405,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
-  }
-
-  if (!GEMINI_API_KEY) {
-    return new Response(
-      JSON.stringify({ error: "GEMINI_API_KEY is not configured on the server" }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
-    );
-  }
-
-  let payload: ProxyRequest;
-  try {
-    payload = await req.json();
-  } catch {
-    return new Response(JSON.stringify({ error: "Invalid JSON body" }), {
-      status: 400,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
-  }
-
-  if (!payload?.contents) {
-    return new Response(JSON.stringify({ error: "Missing 'contents' in body" }), {
-      status: 400,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
-  }
-
-  const model = payload.model || "gemini-1.5-flash";
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(
-    model,
-  )}:generateContent?key=${GEMINI_API_KEY}`;
-
-  const upstreamBody: Record<string, unknown> = { contents: payload.contents };
-  if (payload.systemInstruction) upstreamBody.systemInstruction = payload.systemInstruction;
-  if (payload.generationConfig) upstreamBody.generationConfig = payload.generationConfig;
 
   try {
+    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+    if (!GEMINI_API_KEY) {
+      return new Response(
+        JSON.stringify({ error: "GEMINI_API_KEY not configured" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
+
+    const payload = await req.json();
+    // Accept either the configured model or fall back to a current default.
+    // Map deprecated names to supported ones if necessary.
+    let model: string = payload.model || DEFAULT_MODEL;
+
+    const upstreamBody: Record<string, unknown> = {
+      contents: payload.contents,
+    };
+    if (payload.systemInstruction) upstreamBody.systemInstruction = payload.systemInstruction;
+    if (payload.generationConfig) upstreamBody.generationConfig = payload.generationConfig;
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
     const upstream = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -72,16 +42,13 @@ Deno.serve(async (req) => {
     const text = await upstream.text();
     return new Response(text, {
       status: upstream.status,
-      headers: {
-        ...corsHeaders,
-        "Content-Type": upstream.headers.get("Content-Type") ?? "application/json",
-      },
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
-    console.error("[ai-proxy] upstream error", err);
+    const msg = err instanceof Error ? err.message : String(err);
     return new Response(
-      JSON.stringify({ error: "Upstream request failed", detail: String(err) }),
-      { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      JSON.stringify({ error: msg }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
   }
 });

@@ -1,19 +1,24 @@
-// AI client (browser-side).
-// Calls our `ai-proxy` edge function, which forwards the request to Google's
-// Gemini API server-side. The Gemini API key lives in Supabase secrets and is
-// never exposed to the browser. Function names and message shapes are kept
-// stable so the rest of the app does not need to change.
+// Gemini client (browser-side).
+// Despite the filename, this module now wraps Google's Gemini API
+// (gemini-1.5-flash). Function names and message shapes are kept stable
+// so the rest of the app (Employee.tsx etc.) does not need to change.
 
-import { supabase } from "@/integrations/supabase/client";
 import { ariaSkillDocument } from "@/data/ariaSkillDocument";
 import { legalKnowledge } from "@/data/legalKnowledge";
 import { nis2Knowledge } from "@/data/nis2Knowledge";
 
 export const ARIA_DEFAULT_MODEL = "gemini-1.5-flash";
 
+const GEMINI_ENDPOINT = (model: string) =>
+  `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${localStorage.getItem("GEMINI_API_KEY") ?? ""}`;
+
 export interface ChatMessage {
   role: "system" | "user" | "assistant";
   content: string;
+}
+
+function getKey(): string {
+  return localStorage.getItem("GEMINI_API_KEY") || "";
 }
 
 /* ------------------------------------------------------------------ */
@@ -72,15 +77,14 @@ Do not explain the marker. Do not output JSON yourself — the system will extra
 /* Helpers — convert OpenAI-style messages → Gemini request body      */
 /* ------------------------------------------------------------------ */
 
-function toGeminiPayload(
-  messages: ChatMessage[],
-  opts?: { jsonMode?: boolean; temperature?: number; model?: string },
-) {
+function toGeminiBody(messages: ChatMessage[], opts?: { jsonMode?: boolean; temperature?: number }) {
+  // Merge all system messages into a single systemInstruction
   const systemText = messages
     .filter((m) => m.role === "system")
     .map((m) => m.content)
     .join("\n\n");
 
+  // Map remaining turns; Gemini uses 'user' and 'model'
   const contents = messages
     .filter((m) => m.role !== "system")
     .map((m) => ({
@@ -88,31 +92,19 @@ function toGeminiPayload(
       parts: [{ text: m.content }],
     }));
 
-  const payload: any = {
-    model: opts?.model ?? ARIA_DEFAULT_MODEL,
+  const body: any = {
     contents,
     generationConfig: {
       temperature: opts?.temperature ?? 0.4,
     },
   };
   if (systemText) {
-    payload.systemInstruction = { parts: [{ text: systemText }] };
+    body.systemInstruction = { parts: [{ text: systemText }] };
   }
   if (opts?.jsonMode) {
-    payload.generationConfig.responseMimeType = "application/json";
+    body.generationConfig.responseMimeType = "application/json";
   }
-  return payload;
-}
-
-async function invokeProxy(payload: any): Promise<any | null> {
-  const { data, error } = await supabase.functions.invoke("ai-proxy", {
-    body: payload,
-  });
-  if (error) {
-    console.warn("[ai-proxy] error", error);
-    return null;
-  }
-  return data;
+  return body;
 }
 
 /* ------------------------------------------------------------------ */
@@ -124,13 +116,28 @@ export async function chatCompletion(
   model = ARIA_DEFAULT_MODEL,
   opts?: { jsonMode?: boolean; temperature?: number },
 ): Promise<string | null> {
-  const data = await invokeProxy(toGeminiPayload(messages, { ...opts, model }));
-  if (!data) return null;
-  return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? null;
+  const key = getKey();
+  if (!key) return null;
+  try {
+    const res = await fetch(GEMINI_ENDPOINT(model), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(toGeminiBody(messages, opts)),
+    });
+    if (!res.ok) {
+      console.warn("[Gemini] error", res.status, await res.text());
+      return null;
+    }
+    const data = await res.json();
+    return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? null;
+  } catch (err) {
+    console.warn("[Gemini] chatCompletion failed", err);
+    return null;
+  }
 }
 
 /* ------------------------------------------------------------------ */
-/* "Streaming" — single delta surfaced from a non-streaming call      */
+/* "Streaming" — Gemini non-streaming call surfaced as a single delta */
 /* ------------------------------------------------------------------ */
 
 export async function streamChatCompletion(
@@ -143,10 +150,28 @@ export async function streamChatCompletion(
     signal?: AbortSignal;
   },
 ): Promise<string> {
-  const data = await invokeProxy(
-    toGeminiPayload(messages, { temperature: opts.temperature, model: opts.model }),
-  );
+  const key = getKey();
+  if (!key) {
+    opts.onDone?.("");
+    return "";
+  }
+
+  const res = await fetch(GEMINI_ENDPOINT(opts.model ?? ARIA_DEFAULT_MODEL), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(toGeminiBody(messages, { temperature: opts.temperature })),
+    signal: opts.signal,
+  });
+
+  if (!res.ok) {
+    const errText = await res.text().catch(() => "");
+    console.warn("[Gemini] error", res.status, errText);
+    throw new Error(`Gemini error ${res.status}: ${errText.slice(0, 200)}`);
+  }
+
+  const data = await res.json();
   const full: string = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+
   if (full) opts.onDelta(full);
   opts.onDone?.(full);
   return full;
