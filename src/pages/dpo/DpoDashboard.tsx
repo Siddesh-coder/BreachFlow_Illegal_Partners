@@ -20,11 +20,7 @@ const DpoDashboard = () => {
     return c;
   }, [monthIncidents]);
 
-  const score = useMemo(() => {
-    const total = counts.high * 3 + counts.medium * 2 + counts.low * 1;
-    const max = monthIncidents.length * 3 || 1;
-    return total / max; // 0..1
-  }, [counts, monthIncidents]);
+  const monthTotal = monthIncidents.length;
 
   const statusCounts = useMemo(() => {
     const c = { new: 0, in_progress: 0, completed: 0 };
@@ -52,23 +48,27 @@ const DpoDashboard = () => {
         </div>
       </div>
 
-      {/* Speedometer */}
+      {/* Severity gauges */}
       <section className="bg-card border border-border shadow-card p-10 rounded-sm">
-        <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-2">Severity index</div>
-        <h2 className="font-serif text-xl mb-6">Monthly weighted severity</h2>
-        <div className="flex flex-col items-center">
-          <Speedometer value={score} />
+        <div className="flex items-end justify-between mb-6">
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-2">Severity breakdown</div>
+            <h2 className="font-serif text-xl">Incidents this month</h2>
+          </div>
+          <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+            {monthTotal} total
+          </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-3 gap-6">
-          <Stat dot="bg-destructive" label="High" count={counts.high} />
-          <Stat dot="bg-warning" label="Medium" count={counts.medium} />
-          <Stat dot="bg-success" label="Low" count={counts.low} />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <GaugeCard tone="danger" label="High" count={counts.high} total={monthTotal} />
+          <GaugeCard tone="warning" label="Medium" count={counts.medium} total={monthTotal} />
+          <GaugeCard tone="success" label="Low" count={counts.low} total={monthTotal} />
         </div>
 
-        <div className="mt-6 flex items-center justify-between">
+        <div className="mt-8 flex items-center justify-between">
           <p className="text-[11px] text-muted-foreground">
-            Weighted average across this month's incidents.
+            Distribution of incidents reported this month by severity.
           </p>
           <a className="text-[11px] uppercase tracking-[0.16em] hover:underline" href="#">View lifetime data →</a>
         </div>
