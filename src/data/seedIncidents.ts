@@ -16,6 +16,8 @@ export const SEED_INCIDENTS: Incident[] = [
     countries: ["Germany"],
     contained: true,
     additionalNotes: "Researcher provided a responsible disclosure report.",
+    nis2Sector: "Healthcare",
+    cyberInsurance: true,
     severity: "high",
     status: "in_progress",
     aiSummary: "Misconfigured backup exposed 1,840 patient health records publicly for ~18 hours.",
