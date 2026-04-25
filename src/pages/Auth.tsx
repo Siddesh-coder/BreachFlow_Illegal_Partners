@@ -19,7 +19,9 @@ const Auth = () => {
     const user = await signIn(email, password);
     signInUser(user);
     setLoading(false);
-    navigate(user.role === "dpo" ? "/dpo" : "/employee");
+    const dest =
+      user.role === "dpo" ? "/dpo" : user.role === "legal" ? "/legal" : "/employee";
+    navigate(dest);
   };
 
   const handleAnonymous = () => {
