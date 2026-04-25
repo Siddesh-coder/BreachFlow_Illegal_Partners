@@ -2,7 +2,11 @@
 // Proxies Gemini API calls server-side so the API key is never exposed to the
 // browser and CORS is handled centrally.
 
-import { corsHeaders } from "@supabase/supabase-js/cors";
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+};
 
 const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY") ?? "";
 
