@@ -58,7 +58,7 @@ const Auth = () => {
                 {loading ? "Signing in…" : "Continue with Sign In"}
               </button>
               <p className="text-[10px] text-muted-foreground/70 leading-relaxed">
-                Tip: emails containing "dpo" route to the DPO dashboard. Otherwise routes to the employee portal.
+                Tip: emails containing "legal" route to the Legal Counsel workspace, "dpo" to the DPO dashboard. Otherwise routes to the employee portal.
               </p>
             </form>
           </section>
