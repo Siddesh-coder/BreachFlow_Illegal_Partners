@@ -5,7 +5,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-const DEFAULT_MODEL = "gemini-2.0-flash";
+const DEFAULT_MODEL = "gemini-2.5-flash";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
