@@ -2,95 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* BreachGuard design system — warm luxury, editorial, harvey.ai inspired.
+   All colors defined as HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Warm luxury whites & creams */
+    --background: 48 25% 97%;          /* #FAFAF7 aged paper */
+    --foreground: 0 0% 4%;             /* #0A0A0A near-black */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 4%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 4%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 4%;                /* deep black */
+    --primary-foreground: 48 25% 97%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 40 18% 92%;           /* warm cream */
+    --secondary-foreground: 0 0% 4%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 40 18% 94%;               /* #F5F2EC chat bubble bg */
+    --muted-foreground: 30 8% 40%;     /* #6B6560 warm muted */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 40 18% 92%;              /* hover cream #F0EDE6 */
+    --accent-foreground: 0 0% 4%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 67% 32%;          /* #8B1A1A deep muted red */
+    --destructive-foreground: 48 25% 97%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --success: 145 47% 20%;            /* #1A4A2E deep muted green */
+    --success-foreground: 48 25% 97%;
 
-    --radius: 0.5rem;
+    --warning: 41 64% 29%;             /* #7A5C1A deep muted amber */
+    --warning-foreground: 48 25% 97%;
 
-    --sidebar-background: 0 0% 98%;
+    --border: 36 18% 89%;              /* #E8E4DC thin border */
+    --input: 36 18% 89%;
+    --ring: 0 0% 4%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --radius: 0.25rem;                 /* 4px max */
 
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-background: 48 25% 97%;
+    --sidebar-foreground: 0 0% 4%;
+    --sidebar-primary: 0 0% 4%;
+    --sidebar-primary-foreground: 48 25% 97%;
+    --sidebar-accent: 40 18% 92%;
+    --sidebar-accent-foreground: 0 0% 4%;
+    --sidebar-border: 36 18% 89%;
+    --sidebar-ring: 0 0% 4%;
 
-    --sidebar-primary-foreground: 0 0% 98%;
+    /* Typography */
+    --font-serif: 'Instrument Serif', Georgia, serif;
+    --font-sans: 'Instrument Sans', system-ui, -apple-system, sans-serif;
 
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Subtle shadow */
+    --shadow-card: 0 1px 4px hsl(0 0% 0% / 0.06);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 0 0% 4%;
+    --foreground: 48 25% 97%;
+    --card: 0 0% 6%;
+    --card-foreground: 48 25% 97%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 48 25% 97%;
+    --primary: 48 25% 97%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 48 25% 97%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 30 8% 60%;
+    --accent: 0 0% 10%;
+    --accent-foreground: 48 25% 97%;
+    --destructive: 0 67% 32%;
+    --destructive-foreground: 48 25% 97%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 48 25% 97%;
   }
 }
 
@@ -99,7 +90,54 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  body {
+  html, body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
 }
+
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .text-tracked {
+    letter-spacing: 0.18em;
+  }
+  .animate-fade-in {
+    animation: fade-in 200ms ease-out both;
+  }
+  .animate-fade-in-slow {
+    animation: fade-in 400ms ease-out both;
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typing-dot {
+  0%, 60%, 100% { opacity: 0.2; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-2px); }
+}
+
+.typing-dot {
+  animation: typing-dot 1.2s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(3) { animation-delay: 0.3s; }

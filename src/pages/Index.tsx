@@ -1,16 +1,50 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Link } from "react-router-dom";
+import { Wordmark } from "@/components/Wordmark";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Top bar */}
+      <header className="flex items-center justify-between px-10 py-8">
+        <Wordmark size={22} />
+        <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+          EU GDPR Compliance Platform
+        </span>
+      </header>
+
+      {/* Hero */}
+      <main className="flex-1 flex items-center justify-center px-6">
+        <div className="max-w-[920px] text-center animate-fade-in-slow">
+          <h1 className="font-serif text-[44px] sm:text-[56px] md:text-[64px] leading-[1.05] tracking-[-0.015em]">
+            Data Breach Response,
+            <br />
+            <em className="italic font-serif text-muted-foreground/90">Handled with Precision.</em>
+          </h1>
+
+          <p className="mt-8 text-[15px] sm:text-base text-muted-foreground max-w-[560px] mx-auto leading-relaxed">
+            A secure, AI-guided platform for EU-compliant incident response.
+            Built for legal and security teams.
+          </p>
+
+          <div className="mt-14">
+            <Link
+              to="/auth"
+              className="group inline-block border border-primary text-primary px-10 py-4 text-xs uppercase tracking-[0.2em] hover:bg-primary hover:text-primary-foreground transition-colors duration-200 rounded-sm"
+            >
+              Report a Breach
+            </Link>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="px-10 py-8 text-center">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+          Powered by Otto Schmidt Legal Intelligence
+        </p>
+      </footer>
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
