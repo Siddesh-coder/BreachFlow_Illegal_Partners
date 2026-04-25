@@ -9,11 +9,15 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Employee from "./pages/Employee";
 import LegalLayout from "./pages/legal/LegalLayout";
-import LegalCases from "./pages/legal/LegalCases";
+import LegalOverview from "./pages/legal/LegalOverview";
 import LegalCaseDetail from "./pages/legal/LegalCaseDetail";
 import LegalClassification from "./pages/legal/LegalClassification";
 import LegalDraftReview from "./pages/legal/LegalDraftReview";
 import LegalPrivilegeLog from "./pages/legal/LegalPrivilegeLog";
+import LegalKnowledge from "./pages/legal/LegalKnowledge";
+import LegalIndicators from "./pages/legal/LegalIndicators";
+import LegalResponseWorkflow from "./pages/legal/LegalResponseWorkflow";
+import LegalAriaReports from "./pages/legal/LegalAriaReports";
 import DpoLayout from "./pages/dpo/DpoLayout";
 import DpoDashboard from "./pages/dpo/DpoDashboard";
 import DpoIncidents from "./pages/dpo/DpoIncidents";
@@ -38,11 +42,15 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/employee" element={<Employee />} />
             <Route path="/legal" element={<LegalLayout />}>
-              <Route index element={<LegalCases />} />
+              <Route index element={<LegalOverview />} />
               <Route path="cases/:id" element={<LegalCaseDetail />} />
               <Route path="classification" element={<LegalClassification />} />
               <Route path="draft-review" element={<LegalDraftReview />} />
               <Route path="privilege-log" element={<LegalPrivilegeLog />} />
+              <Route path="knowledge" element={<LegalKnowledge />} />
+              <Route path="indicators" element={<LegalIndicators />} />
+              <Route path="response-workflow" element={<LegalResponseWorkflow />} />
+              <Route path="aria-reports" element={<LegalAriaReports />} />
             </Route>
             <Route path="/dpo" element={<DpoLayout />}>
               <Route index element={<DpoDashboard />} />

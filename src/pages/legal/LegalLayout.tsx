@@ -21,6 +21,7 @@ import { NavLink } from "@/components/NavLink";
 import { Wordmark } from "@/components/Wordmark";
 import { useApp } from "@/state/AppContext";
 import { cn } from "@/lib/utils";
+import { LegalTopTabs } from "@/components/legal/LegalTopTabs";
 
 const NAV = [
   { to: "/legal", label: "Case Files", icon: FileText, end: true },
@@ -138,6 +139,8 @@ const LegalLayout = () => {
               ⚠ Legal classification reserved for Legal Counsel
             </div>
           </header>
+
+          <LegalTopTabs />
 
           <main className="flex-1 overflow-y-auto">
             <Outlet />
