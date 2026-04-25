@@ -144,7 +144,6 @@ const Index = () => {
           style={{ background: "rgba(8, 8, 8, 0.72)", zIndex: 2 }}
         />
         {/* Particles */}
-        <ParticlesLayer className="absolute inset-0 w-full h-full" />
         <div
           className="absolute inset-0"
           style={{ zIndex: 3, pointerEvents: "none" }}
