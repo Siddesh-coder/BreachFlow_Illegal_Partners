@@ -4,7 +4,6 @@ import { useApp } from "@/state/AppContext";
 export function ApiSetupModal() {
   const { hasApiKeys, saveApiKeys } = useApp();
   const [open, setOpen] = useState(!hasApiKeys);
-  const [gemini, setGemini] = useState("");
   const [ldh, setLdh] = useState("sFf4KDTWTAVUKsL6lfdkN7WWlkqoZW0O1fHE6F4I-5k");
 
   useEffect(() => {
@@ -18,17 +17,11 @@ export function ApiSetupModal() {
       <div className="w-full max-w-[520px] bg-card border border-border shadow-card p-12 animate-fade-in">
         <h2 className="font-serif text-[28px] leading-tight">Welcome to BreachGuard</h2>
         <p className="mt-3 text-sm text-muted-foreground">
-          Please enter your API keys to activate the platform.
+          ARIA's AI is hosted securely on Lovable Cloud — no key needed.
+          Please enter your Otto Schmidt API token to activate the platform.
         </p>
 
         <div className="mt-10 space-y-8">
-          <Field
-            label="Gemini API Key"
-            value={gemini}
-            onChange={setGemini}
-            placeholder="AIza..."
-            type="password"
-          />
           <Field
             label="Otto Schmidt API Token"
             value={ldh}
@@ -40,10 +33,10 @@ export function ApiSetupModal() {
 
         <button
           onClick={() => {
-            saveApiKeys(gemini.trim(), ldh.trim());
+            saveApiKeys("", ldh.trim());
             setOpen(false);
           }}
-          disabled={!gemini.trim() || !ldh.trim()}
+          disabled={!ldh.trim()}
           className="mt-10 w-full bg-primary text-primary-foreground py-3 text-xs uppercase tracking-[0.18em] hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded-sm"
         >
           Activate BreachGuard
