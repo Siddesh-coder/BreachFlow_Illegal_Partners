@@ -1,5 +1,13 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { ActionStep, AuditEvent, Incident, IncidentStatus, Notification } from "@/types/incident";
+import type {
+  ActionStep,
+  AuditEvent,
+  Classification,
+  Incident,
+  IncidentStatus,
+  IndicatorStatus,
+  Notification,
+} from "@/types/incident";
 import type { SignedInUser } from "@/services/auth";
 import { SEED_AUDIT, SEED_INCIDENTS, SEED_NOTIFICATIONS } from "@/data/seedIncidents";
 
@@ -18,12 +26,15 @@ interface AppState {
   updateIncident: (id: string, patch: Partial<Incident>) => void;
   updateStep: (incidentId: string, stepId: string, patch: Partial<ActionStep>) => void;
   setIncidentStatus: (id: string, status: IncidentStatus) => void;
+  setIndicatorOverride: (incidentId: string, key: string, status: IndicatorStatus) => void;
+  addClassification: (c: Omit<Classification, "id" | "ts" | "version">) => Classification;
 
   audit: AuditEvent[];
   addAudit: (e: Omit<AuditEvent, "id" | "ts"> & { ts?: string }) => void;
 
   notifications: Notification[];
   addNotification: (n: Omit<Notification, "id">) => void;
+  updateNotification: (id: string, patch: Partial<Notification>) => void;
 }
 
 const AppCtx = createContext<AppState | null>(null);
