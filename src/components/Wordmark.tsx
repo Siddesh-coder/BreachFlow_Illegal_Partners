@@ -27,7 +27,7 @@ export function Wordmark({
       )}
       <span
         style={{
-          fontFamily: "'Italiana', 'Cormorant Garamond', serif",
+          fontFamily: "'Jost', sans-serif",
           fontSize: size * 0.78,
           letterSpacing: "0.2em",
           fontWeight: 400,
