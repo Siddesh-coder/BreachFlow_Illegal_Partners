@@ -35,7 +35,7 @@ export async function chatCompletion(
   messages: ChatMessage[],
   model = "gpt-4o",
 ): Promise<string | null> {
-  const key = localStorage.getItem("OPENAI_API_KEY");
+  const key = localStorage.getItem("OPENAI_API_KEY") || DEFAULT_OPENAI_KEY;
   if (!key) {
     console.warn("[OpenAI] missing API key");
     return null;
