@@ -91,9 +91,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     hasApiKeys,
     saveApiKeys: (gemini, ldh) => {
+      // gemini arg kept for API compatibility but is ignored — the key now
+      // lives server-side in Lovable Cloud secrets.
       if (gemini) localStorage.setItem("GEMINI_API_KEY", gemini);
       if (ldh) localStorage.setItem("LDH_TOKEN", ldh);
-      setHasApiKeys(Boolean(localStorage.getItem("GEMINI_API_KEY") && localStorage.getItem("LDH_TOKEN")));
+      setHasApiKeys(Boolean(localStorage.getItem("LDH_TOKEN")));
     },
 
     incidents,
