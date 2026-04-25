@@ -87,6 +87,33 @@ export const ariaSkillDocument = {
       type: "freetext",
       mandatory: false,
       allowSkip: true
+    },
+    {
+      id: "nis2_employees",
+      question: "How many employees does your organization have?",
+      type: "select",
+      options: ["Fewer than 50", "50–249", "250 or more"],
+      mandatory: false,
+      condition: "only ask if sector is NIS2-relevant (healthcare, energy, transport, banking, digital infrastructure)",
+      gdprArticle: "NIS2 Art. 3 — size threshold determines Essential vs Important entity classification"
+    },
+    {
+      id: "nis2_turnover",
+      question: "What is your organization's approximate annual turnover?",
+      type: "select",
+      options: ["Under €10M", "€10M–€50M", "Over €50M"],
+      mandatory: false,
+      condition: "only ask if sector is NIS2-relevant",
+      gdprArticle: "NIS2 Art. 3 — size threshold for entity classification"
+    },
+    {
+      id: "nis2_bsi_registered",
+      question: "Has your organization registered with BSI under NIS2? (Germany only)",
+      type: "boolean",
+      options: ["Yes", "No", "Not applicable"],
+      mandatory: false,
+      condition: "only ask if Germany selected as affected country",
+      gdprArticle: "§ 32 BSIG-neu — BSI registration required since 6 March 2026"
     }
   ],
   indicatorCriteria: {
