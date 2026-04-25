@@ -127,37 +127,69 @@ const Index = () => {
       {/* HERO */}
       <section
         id="hero"
-        className="relative w-full overflow-hidden"
-        style={{ height: "100vh" }}
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100vh",
+          overflow: "hidden",
+        }}
       >
-        {/* Video */}
+        {/* Video background */}
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ zIndex: 1 }}
+          onError={(e) => {
+            const v = e.currentTarget;
+            if (!v.dataset.fallback) {
+              v.dataset.fallback = "1";
+              v.src = VIDEO_FALLBACK;
+              v.load();
+              v.play().catch(() => {});
+            }
+          }}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0,
+          }}
         >
           <source src={VIDEO_URL} type="video/mp4" />
         </video>
-        {/* Overlay */}
+        {/* Dark overlay */}
         <div
-          className="absolute inset-0"
-          style={{ background: "rgba(8, 8, 8, 0.72)", zIndex: 2 }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(8, 8, 8, 0.72)",
+            zIndex: 1,
+          }}
         />
         {/* Particles */}
         <div
-          className="absolute inset-0"
-          style={{ zIndex: 3, pointerEvents: "none" }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 2,
+            pointerEvents: "none",
+          }}
         >
           <ParticlesLayer className="absolute inset-0 w-full h-full" />
         </div>
 
         {/* Hero content */}
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center text-center px-6"
-          style={{ zIndex: 4 }}
+          className="flex flex-col items-center justify-center text-center px-6"
+          style={{
+            position: "relative",
+            zIndex: 2,
+            height: "100%",
+          }}
         >
           <div
             style={{
@@ -216,8 +248,14 @@ const Index = () => {
 
         {/* Scroll indicator */}
         <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          style={{ zIndex: 4 }}
+          className="flex flex-col items-center gap-2"
+          style={{
+            position: "absolute",
+            bottom: 32,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 2,
+          }}
         >
           <div
             style={{
