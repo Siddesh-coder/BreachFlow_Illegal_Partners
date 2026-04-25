@@ -127,6 +127,30 @@ export function AppProvider({ children }: { children: ReactNode }) {
       );
       return created;
     },
+    advanceProcessStage: (incidentId, to, opts) => {
+      const ts = new Date().toISOString();
+      const order: ProcessStageId[] = ["P0", "P1", "P2", "P3", "P4"];
+      setIncidents((prev) =>
+        prev.map((it) => {
+          if (it.id !== incidentId) return it;
+          const existing = it.process?.stages ?? order.map((id) => ({ id, status: "pending" as const }));
+          const toIdx = order.indexOf(to);
+          const stages = existing.map((s) => {
+            const sIdx = order.indexOf(s.id);
+            if (sIdx < toIdx) {
+              return s.status === "complete"
+                ? s
+                : { ...s, status: "complete" as const, completedAt: s.completedAt ?? ts, completedBy: s.completedBy ?? opts?.actor };
+            }
+            if (sIdx === toIdx) {
+              return { ...s, status: "in_progress" as const, enteredAt: s.enteredAt ?? ts, overrideReasons: opts?.overrideReasons };
+            }
+            return { ...s, status: "pending" as const };
+          });
+          return { ...it, process: { currentStage: to, stages } };
+        }),
+      );
+    },
 
     audit,
     addAudit: (e) =>
