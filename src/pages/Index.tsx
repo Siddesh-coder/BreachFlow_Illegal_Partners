@@ -111,9 +111,9 @@ const Index = () => {
           <img
             src={breachflowMark}
             alt="Breachflow logo"
-            width={28}
-            height={28}
-            style={{ width: 28, height: 28, objectFit: "contain" }}
+            width={48}
+            height={48}
+            style={{ width: 48, height: 48, objectFit: "contain" }}
           />
           Breachflow
         </button>
