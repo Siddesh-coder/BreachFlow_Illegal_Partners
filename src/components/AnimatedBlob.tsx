@@ -23,22 +23,19 @@ export const AnimatedBlob = () => {
             border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%;
           }
           25% {
-            border-radius: 58% 42% 38% 62% / 55% 58% 42% 45%;
+            border-radius: 70% 30% 35% 65% / 60% 65% 35% 40%;
           }
           50% {
-            border-radius: 50% 50% 62% 38% / 42% 55% 45% 58%;
+            border-radius: 35% 65% 70% 30% / 40% 60% 40% 60%;
           }
           75% {
-            border-radius: 38% 62% 48% 52% / 58% 38% 62% 42%;
+            border-radius: 60% 40% 30% 70% / 65% 35% 65% 35%;
           }
         }
         @keyframes blobRotate {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes blobScale {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.06); }
+          from { transform: rotate(0deg) scale(1); }
+          50%  { transform: rotate(180deg) scale(1.08); }
+          to   { transform: rotate(360deg) scale(1); }
         }
         .animated-blob-wrapper {
           position: absolute;
@@ -51,25 +48,18 @@ export const AnimatedBlob = () => {
           transform: translateX(-50%) translateY(var(--scroll-y, 0px));
           will-change: transform;
         }
-        .animated-blob-scale {
-          width: 100%;
-          height: 100%;
-          animation: blobScale 6s ease-in-out infinite;
-        }
         .animated-blob-rotate {
           width: 100%;
           height: 100%;
           animation: blobRotate 20s linear infinite;
+          transform-origin: 50% 50%;
         }
         .animated-blob-shape {
           width: 100%;
           height: 100%;
-          background: radial-gradient(circle at 50% 50%,
-            rgba(154, 145, 252, 0.9) 0%,
-            rgba(154, 145, 252, 0.55) 40%,
-            rgba(154, 145, 252, 0.2) 70%,
-            rgba(154, 145, 252, 0) 100%);
-          filter: blur(20px);
+          background: #9A91FC;
+          opacity: 0.7;
+          filter: blur(40px);
           animation: blobMorph 8s ease-in-out infinite;
         }
         @media (max-width: 768px) {
@@ -78,12 +68,15 @@ export const AnimatedBlob = () => {
             height: 400px;
           }
         }
+        @media (prefers-reduced-motion: reduce) {
+          .animated-blob-rotate, .animated-blob-shape {
+            animation: none;
+          }
+        }
       `}</style>
       <div ref={blobRef} aria-hidden="true" className="animated-blob-wrapper">
-        <div className="animated-blob-scale">
-          <div className="animated-blob-rotate">
-            <div className="animated-blob-shape" />
-          </div>
+        <div className="animated-blob-rotate">
+          <div className="animated-blob-shape" />
         </div>
       </div>
     </>
