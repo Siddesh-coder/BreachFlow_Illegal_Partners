@@ -6,6 +6,7 @@
 import { ariaSkillDocument } from "@/data/ariaSkillDocument";
 import { legalKnowledge } from "@/data/legalKnowledge";
 import { nis2Knowledge } from "@/data/nis2Knowledge";
+import { QUESTIONS } from "@/lib/ariaQuestions";
 
 export const ARIA_DEFAULT_MODEL = "gemini-1.5-flash";
 
