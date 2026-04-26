@@ -19,8 +19,8 @@ const COLORS = {
   faint: "#5A5550",
 };
 
-const FONT_SERIF = "'Instrument Serif', serif";
-const FONT_SANS = "'Instrument Sans', sans-serif";
+const FONT_SERIF = "'Lora', serif";
+const FONT_SANS = "'Poppins', sans-serif";
 
 function smoothScrollTo(id: string) {
   const el = document.getElementById(id);
