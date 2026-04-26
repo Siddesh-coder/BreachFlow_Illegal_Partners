@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { ParticlesLayer } from "@/components/ParticlesLayer";
 import { AnimatedBlob } from "@/components/AnimatedBlob";
+import breachflowMark from "@/assets/breachflow-mark.png";
 import teamSiddesh from "@/assets/team-siddesh.png";
 import teamLiam from "@/assets/team-liam.png";
 import teamJacob from "@/assets/team-jacob.png";
