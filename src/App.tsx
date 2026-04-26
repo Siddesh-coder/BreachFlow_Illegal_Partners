@@ -43,8 +43,8 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/employee" element={<Employee />} />
             <Route path="/legal" element={<LegalLayout />}>
-              <Route index element={<LegalOverview />} />
-              <Route path="all-cases" element={<LegalCases />} />
+              <Route index element={<LegalCases />} />
+              <Route path="overview" element={<LegalOverview />} />
               <Route path="cases/:id" element={<LegalCaseDetail />} />
               <Route path="classification" element={<LegalClassification />} />
               <Route path="draft-review" element={<LegalDraftReview />} />
