@@ -102,8 +102,19 @@ const Index = () => {
             background: "transparent",
             border: "none",
             cursor: "pointer",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 10,
+            padding: 0,
           }}
         >
+          <img
+            src={breachflowMark}
+            alt="Breachflow logo"
+            width={28}
+            height={28}
+            style={{ width: 28, height: 28, objectFit: "contain" }}
+          />
           Breachflow
         </button>
         <div className="flex items-center gap-8">
