@@ -10,6 +10,7 @@ import Auth from "./pages/Auth";
 import Employee from "./pages/Employee";
 import LegalLayout from "./pages/legal/LegalLayout";
 import LegalOverview from "./pages/legal/LegalOverview";
+import LegalCases from "./pages/legal/LegalCases";
 import LegalCaseDetail from "./pages/legal/LegalCaseDetail";
 import LegalClassification from "./pages/legal/LegalClassification";
 import LegalDraftReview from "./pages/legal/LegalDraftReview";
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/employee" element={<Employee />} />
             <Route path="/legal" element={<LegalLayout />}>
               <Route index element={<LegalOverview />} />
+              <Route path="all-cases" element={<LegalCases />} />
               <Route path="cases/:id" element={<LegalCaseDetail />} />
               <Route path="classification" element={<LegalClassification />} />
               <Route path="draft-review" element={<LegalDraftReview />} />

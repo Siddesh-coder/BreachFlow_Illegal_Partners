@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { FileText, FilePen, LogOut } from "lucide-react";
+import { FileText, FilePen, Files, LogOut } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -25,6 +25,7 @@ import { LegalTopTabs } from "@/components/legal/LegalTopTabs";
 
 const NAV = [
   { to: "/legal", label: "Case Files", icon: FileText, end: true },
+  { to: "/legal/all-cases", label: "All Cases", icon: Files },
   { to: "/legal/draft-review", label: "Draft Review", icon: FilePen },
 ];
 
