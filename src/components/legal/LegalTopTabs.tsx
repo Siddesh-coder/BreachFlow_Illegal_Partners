@@ -2,7 +2,7 @@ import { NavLink } from "@/components/NavLink";
 import { cn } from "@/lib/utils";
 
 const TABS = [
-  { to: "/legal", label: "Overview", end: true },
+  { to: "/legal/overview", label: "Overview" },
   { to: "/legal/response-workflow", label: "Response Map" },
   { to: "/legal/classification", label: "Classification" },
 ];
