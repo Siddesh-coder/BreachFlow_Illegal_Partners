@@ -170,7 +170,7 @@
   --accent-foreground: 0 0% 4%;         /* dark text on faint purple */
   --border: 258 30% 94%;                /* #EEEBF5 */
   --input: 258 30% 94%;
-  --ring: 249 80% 67%;                  /* #7B68EE — focus ring only */
+  --ring: 245 95% 78%;                  /* #9A91FC — focus ring only */
   --heading: 0 0% 4%;                   /* black headings */
 
   --sidebar-background: 0 0% 100%;
@@ -180,7 +180,7 @@
   --sidebar-accent: 252 60% 96%;
   --sidebar-accent-foreground: 0 0% 4%;
   --sidebar-border: 258 30% 94%;
-  --sidebar-ring: 249 80% 67%;
+  --sidebar-ring: 245 95% 78%;
 
   position: relative;
   background-color: #FFFFFF;
@@ -194,7 +194,7 @@
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(ellipse 90% 55% at 50% -5%, rgba(147, 112, 219, 0.32) 0%, rgba(167, 139, 250, 0.18) 35%, rgba(167, 139, 250, 0.06) 60%, transparent 80%);
+  background: radial-gradient(ellipse 90% 55% at 50% -5%, rgba(154, 145, 252, 0.32) 0%, rgba(154, 145, 252, 0.18) 35%, rgba(154, 145, 252, 0.06) 60%, transparent 80%);
 }
 
 /* Make sure children render above the glow */
@@ -203,13 +203,13 @@
   z-index: 1;
 }
 
-/* Replace gold accent (#c9a96e and variants) with muted purple #7B68EE inside shell */
+/* Replace gold accent (#c9a96e and variants) with #9A91FC inside shell */
 .app-light-shell [style*="#c9a96e"],
 .app-light-shell [style*="#C9A96E"],
 .app-light-shell [style*="#c9a875"],
 .app-light-shell [style*="rgb(201, 169, 110)"] {
-  color: #7B68EE !important;
-  border-color: #7B68EE !important;
+  color: #9A91FC !important;
+  border-color: #9A91FC !important;
 }
 
 /* Buttons inside shell: outlined black, fill on hover */
