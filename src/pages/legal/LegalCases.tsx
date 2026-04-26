@@ -46,11 +46,9 @@ const LegalCases = () => {
   const { incidents } = useApp();
 
   const sorted = useMemo(() => {
-    return [...incidents].sort((a, b) => {
-      const da = deadlineRemainingMs(a.discoveredAt, shortestDeadlineHours(a).hours);
-      const db = deadlineRemainingMs(b.discoveredAt, shortestDeadlineHours(b).hours);
-      return da - db;
-    });
+    return [...incidents].sort(
+      (a, b) => new Date(b.reportedAt).getTime() - new Date(a.reportedAt).getTime(),
+    );
   }, [incidents]);
 
   return (

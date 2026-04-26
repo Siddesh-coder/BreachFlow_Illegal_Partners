@@ -24,8 +24,7 @@ import { cn } from "@/lib/utils";
 import { LegalTopTabs } from "@/components/legal/LegalTopTabs";
 
 const NAV = [
-  { to: "/legal", label: "Case Files", icon: FileText, end: true },
-  { to: "/legal/all-cases", label: "All Cases", icon: Files },
+  { to: "/legal", label: "All Cases", icon: Files, end: true },
   { to: "/legal/draft-review", label: "Draft Review", icon: FilePen },
 ];
 
