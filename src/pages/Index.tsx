@@ -13,21 +13,16 @@ const TEAM_MEMBERS = [
   { name: "Leo", role: "Legal Counsel", bio: "Lawyer", photo: teamLeo },
 ];
 
-// Primary: user-requested Coverr URL. Fallback: hosted sample (Coverr URL currently 301s).
-const VIDEO_URL =
-  "https://cdn.coverr.co/videos/coverr-typing-on-a-laptop-in-a-dark-room-7185/1080p.mp4";
-const VIDEO_FALLBACK =
-  "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_5MB.mp4";
-
 const COLORS = {
-  bg: "#080808",
-  bgAlt: "#0D0D0D",
-  card: "#111111",
-  border: "#1E1E1E",
-  fg: "#F0EDE8",
-  muted: "#A09A92",
-  body: "#6B6560",
-  faint: "#5A5550",
+  bg: "#FFFFFF",
+  bgAlt: "#FAFAFB",
+  card: "#FFFFFF",
+  border: "#EEEBF5",
+  fg: "#0A0A0A",
+  muted: "#6B6570",
+  body: "#6B6570",
+  faint: "#9B9590",
+  accent: "#9A91FC",
 };
 
 const FONT_SERIF = "'Lora', serif";
@@ -59,10 +54,11 @@ function CtaButton({
         padding: "14px 32px",
         borderRadius: 2,
         background: "transparent",
+        textDecoration: "none",
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLElement).style.background = COLORS.fg;
-        (e.currentTarget as HTMLElement).style.color = COLORS.bg;
+        (e.currentTarget as HTMLElement).style.color = "#FFFFFF";
       }}
       onMouseLeave={(e) => {
         (e.currentTarget as HTMLElement).style.background = "transparent";
@@ -87,8 +83,13 @@ const Index = () => {
     <div style={{ background: COLORS.bg, color: COLORS.fg, minHeight: "100vh" }}>
       {/* NAVBAR */}
       <nav
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6"
-        style={{ background: "transparent" }}
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5"
+        style={{
+          background: "rgba(255,255,255,0.85)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          borderBottom: `1px solid ${COLORS.border}`,
+        }}
       >
         <button
           onClick={() => smoothScrollTo("hero")}
@@ -143,42 +144,25 @@ const Index = () => {
           width: "100%",
           height: "100vh",
           overflow: "hidden",
+          background: "#FFFFFF",
         }}
       >
-        {/* Video background */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          onError={(e) => {
-            const v = e.currentTarget;
-            if (!v.dataset.fallback) {
-              v.dataset.fallback = "1";
-              v.src = VIDEO_FALLBACK;
-              v.load();
-              v.play().catch(() => {});
-            }
-          }}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            zIndex: 0,
-          }}
-        >
-          <source src={VIDEO_URL} type="video/mp4" />
-        </video>
-        {/* Dark overlay */}
+        {/* Purple orb */}
         <div
+          aria-hidden="true"
           style={{
             position: "absolute",
-            inset: 0,
-            background: "rgba(8, 8, 8, 0.72)",
-            zIndex: 1,
+            top: "-10%",
+            left: "50%",
+            width: 700,
+            height: 700,
+            background:
+              "radial-gradient(ellipse at center, rgba(154,145,252,0.85) 0%, rgba(154,145,252,0.5) 25%, rgba(154,145,252,0.2) 55%, transparent 75%)",
+            borderRadius: "50%",
+            filter: "blur(40px)",
+            animation: "orbPulse 6s ease-in-out infinite",
+            pointerEvents: "none",
+            zIndex: 0,
           }}
         />
         {/* Particles */}
@@ -186,7 +170,7 @@ const Index = () => {
           style={{
             position: "absolute",
             inset: 0,
-            zIndex: 2,
+            zIndex: 1,
             pointerEvents: "none",
           }}
         >
@@ -208,8 +192,9 @@ const Index = () => {
               fontSize: 11,
               textTransform: "uppercase",
               letterSpacing: "3px",
-              color: COLORS.muted,
+              color: COLORS.accent,
               marginBottom: 28,
+              fontWeight: 500,
             }}
           >
             EU GDPR Compliance Platform
@@ -233,10 +218,11 @@ const Index = () => {
             style={{
               fontFamily: FONT_SANS,
               fontSize: 17,
-              color: COLORS.body,
+              color: COLORS.muted,
               maxWidth: 520,
               margin: "28px auto 0",
               lineHeight: 1.6,
+              fontWeight: 300,
             }}
           >
             An AI-guided platform for EU-compliant incident response. Built for
@@ -297,11 +283,21 @@ const Index = () => {
             0%, 100% { opacity: 0.2; }
             50% { opacity: 0.7; }
           }
+          @keyframes orbPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.85; }
+            50% { transform: translateX(-50%) scale(1.08); opacity: 1; }
+          }
         `}</style>
       </section>
 
       {/* SECTION 2 — FEATURE CARDS */}
-      <section style={{ background: COLORS.bg, padding: "120px 24px" }}>
+      <section
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 40% at 50% 0%, rgba(154,145,252,0.08) 0%, transparent 60%), #FFFFFF",
+          padding: "120px 24px",
+        }}
+      >
         <div
           style={{
             maxWidth: 1000,
@@ -330,11 +326,19 @@ const Index = () => {
           ].map((c) => (
             <div
               key={c.n}
+              className="transition-shadow duration-300"
               style={{
                 background: COLORS.card,
                 border: `1px solid ${COLORS.border}`,
                 padding: 36,
                 borderRadius: 4,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  "0 4px 20px rgba(154,145,252,0.15)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow = "none";
               }}
             >
               <div
@@ -342,8 +346,9 @@ const Index = () => {
                   fontFamily: FONT_SANS,
                   fontSize: 11,
                   letterSpacing: "2px",
-                  color: COLORS.faint,
+                  color: COLORS.accent,
                   marginBottom: 18,
+                  fontWeight: 500,
                 }}
               >
                 {c.n}
@@ -353,7 +358,7 @@ const Index = () => {
                   fontFamily: FONT_SERIF,
                   fontSize: 22,
                   color: COLORS.fg,
-                  fontWeight: 400,
+                  fontWeight: 500,
                   margin: 0,
                   marginBottom: 14,
                 }}
@@ -367,6 +372,7 @@ const Index = () => {
                   color: COLORS.body,
                   lineHeight: 1.7,
                   margin: 0,
+                  fontWeight: 300,
                 }}
               >
                 {c.body}
@@ -629,8 +635,8 @@ const Index = () => {
       {/* FOOTER */}
       <footer
         style={{
-          background: "#060606",
-          borderTop: "1px solid #141414",
+          background: "#FAFAFB",
+          borderTop: `1px solid ${COLORS.border}`,
           padding: 32,
         }}
       >
