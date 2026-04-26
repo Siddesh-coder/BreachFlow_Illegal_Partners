@@ -15,7 +15,7 @@ export function LegalTopTabs() {
           <NavLink
             key={t.to}
             to={t.to}
-            end={t.end}
+            
             className={cn(
               "py-3 text-[13px] text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap border-b-2 border-transparent -mb-px",
             )}
