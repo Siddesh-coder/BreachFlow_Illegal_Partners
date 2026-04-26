@@ -207,9 +207,9 @@ const Index = () => {
               margin: 0,
             }}
           >
-            Data Breach Response,
+            Handling Data Breaches
             <br />
-            Handled with Precision.
+            in the Era of NewLaw.
           </h1>
           <p
             style={{
