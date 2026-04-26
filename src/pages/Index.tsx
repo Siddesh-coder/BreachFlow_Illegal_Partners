@@ -649,8 +649,19 @@ const Index = () => {
               fontFamily: FONT_SANS,
               fontSize: 12,
               color: COLORS.body,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
             }}
           >
+            <img
+              src={breachflowMark}
+              alt="Breachflow logo"
+              width={22}
+              height={22}
+              style={{ width: 22, height: 22, objectFit: "contain" }}
+              loading="lazy"
+            />
             <span style={{ fontFamily: FONT_SERIF, fontSize: 16, color: COLORS.fg, marginRight: 12 }}>
               Breachflow
             </span>
