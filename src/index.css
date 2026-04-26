@@ -146,3 +146,108 @@
 }
 .typing-dot:nth-child(2) { animation-delay: 0.15s; }
 .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+/* ========================================================================
+   App Light Shell — applied to /auth, /employee, /dpo, /legal
+   White background with subtle purple ambient glow + muted purple accent.
+   Landing page (/) keeps its own dark theme.
+   ======================================================================== */
+.app-light-shell {
+  /* Override semantic tokens within this shell */
+  --background: 0 0% 100%;             /* #FFFFFF */
+  --foreground: 0 0% 4%;                /* #0A0A0A */
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 4%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 4%;
+  --primary: 0 0% 4%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 252 50% 97%;             /* faint purple cream */
+  --secondary-foreground: 0 0% 4%;
+  --muted: 252 40% 97%;
+  --muted-foreground: 282 5% 43%;       /* #6B6570 */
+  --accent: 249 80% 67%;                /* #7B68EE muted purple */
+  --accent-foreground: 0 0% 100%;
+  --border: 258 30% 94%;                /* #EEEBF5 */
+  --input: 258 30% 94%;
+  --ring: 249 80% 67%;
+  --heading: 0 0% 4%;                   /* black headings */
+
+  --sidebar-background: 0 0% 100%;
+  --sidebar-foreground: 0 0% 4%;
+  --sidebar-primary: 0 0% 4%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 252 50% 97%;
+  --sidebar-accent-foreground: 0 0% 4%;
+  --sidebar-border: 258 30% 94%;
+  --sidebar-ring: 249 80% 67%;
+
+  position: relative;
+  background-color: #FFFFFF;
+  color: #0A0A0A;
+}
+
+/* Subtle purple ambient glow at top center (fixed background layer) */
+.app-light-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(147, 112, 219, 0.15) 0%, transparent 60%);
+}
+
+/* Make sure children render above the glow */
+.app-light-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Replace gold accent (#c9a96e and variants) with muted purple #7B68EE inside shell */
+.app-light-shell [style*="#c9a96e"],
+.app-light-shell [style*="#C9A96E"],
+.app-light-shell [style*="#c9a875"],
+.app-light-shell [style*="rgb(201, 169, 110)"] {
+  color: #7B68EE !important;
+  border-color: #7B68EE !important;
+}
+
+/* Buttons inside shell: outlined black, fill on hover */
+.app-light-shell .btn-outline-ink,
+.app-light-shell button[data-variant="ink"] {
+  border: 1px solid #0A0A0A;
+  background: transparent;
+  color: #0A0A0A;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.app-light-shell .btn-outline-ink:hover,
+.app-light-shell button[data-variant="ink"]:hover {
+  background: #0A0A0A;
+  color: #FFFFFF;
+}
+
+/* Apply Lora to headings, Poppins Light to body within shell (already global, but enforce weight) */
+.app-light-shell {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+}
+.app-light-shell h1,
+.app-light-shell h2,
+.app-light-shell h3,
+.app-light-shell h4,
+.app-light-shell h5,
+.app-light-shell h6 {
+  font-family: 'Lora', serif;
+  color: #0A0A0A;
+}
+.app-light-shell p,
+.app-light-shell label,
+.app-light-shell button,
+.app-light-shell input,
+.app-light-shell textarea,
+.app-light-shell select,
+.app-light-shell span,
+.app-light-shell li,
+.app-light-shell a {
+  font-family: 'Poppins', sans-serif;
+}
