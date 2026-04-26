@@ -209,7 +209,7 @@ const Index = () => {
           >
             Handling Data Breaches
             <br />
-            in the Era of NewLaw.
+            in the Era of <em style={{ fontStyle: "italic" }}>NewLaw</em>.
           </h1>
           <p
             style={{
