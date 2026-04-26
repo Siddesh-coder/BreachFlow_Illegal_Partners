@@ -22,7 +22,7 @@ const DpoLayout = () => {
   const onDetail = /^\/dpo\/incidents\/[^/]+$/.test(location.pathname);
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="app-light-shell min-h-screen bg-background flex">
       {/* Sidebar */}
       <aside className="w-[220px] border-r border-border flex flex-col py-8 px-6 bg-background">
         <Wordmark size={20} />
