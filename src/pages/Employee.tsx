@@ -449,12 +449,28 @@ const Employee = () => {
         <div className="flex flex-col" style={{ height: "calc(100vh - 140px)" }}>
           <div className="flex items-end justify-between mb-4 shrink-0">
             <div>
-              <div className="font-serif text-xl leading-none">ARIA</div>
-              <div className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground mt-1.5">
+              <div
+                className="font-serif text-2xl leading-none"
+                style={{
+                  fontFamily: "'Lora', serif",
+                  background:
+                    "linear-gradient(135deg, #0A0A0A 0%, #5E1A2A 70%, #8B6B2E 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  letterSpacing: "0.04em",
+                }}
+              >
+                ARIA
+              </div>
+              <div
+                className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground mt-2"
+                style={{ fontFamily: "'Lora', serif" }}
+              >
                 AI Breach Response Agent · Guided Intake
               </div>
             </div>
-            <div className="text-[11px]">
+            <div className="text-[11px]" style={{ fontFamily: "'Lora', serif", letterSpacing: "0.04em" }}>
               {isAnonymous ? (
                 <span className="text-warning">Reporting anonymously</span>
               ) : user ? (
@@ -466,17 +482,25 @@ const Employee = () => {
           </div>
 
           {/* progress strip */}
-          <div className="flex items-center gap-1 mb-3 shrink-0">
+          <div className="flex items-center gap-1.5 mb-4 shrink-0">
             {Array.from({ length: 10 }).map((_, i) => (
               <div
                 key={i}
-                className={cn(
-                  "h-[3px] flex-1 rounded-full transition-colors",
-                  i < progressIdx ? "bg-primary" : i === progressIdx ? "bg-primary/40" : "bg-border",
-                )}
+                className="h-[3px] flex-1 rounded-full transition-all"
+                style={{
+                  background:
+                    i < progressIdx
+                      ? "linear-gradient(90deg, #5E1A2A 0%, #D4AF64 100%)"
+                      : i === progressIdx
+                      ? "rgba(94, 26, 42, 0.35)"
+                      : "#E8DFC7",
+                }}
               />
             ))}
-            <span className="ml-3 text-[10px] uppercase tracking-[0.16em] text-muted-foreground tabular-nums">
+            <span
+              className="ml-3 text-[10px] uppercase tracking-[0.22em] text-muted-foreground tabular-nums"
+              style={{ fontFamily: "'Lora', serif" }}
+            >
               {Math.min(progressIdx + 1, 10)} / 10
             </span>
           </div>
