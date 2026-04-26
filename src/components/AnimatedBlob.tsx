@@ -64,8 +64,8 @@ export const AnimatedBlob = () => {
         }
         @media (max-width: 768px) {
           .animated-blob-wrapper {
-            width: 280px;
-            height: 280px;
+            width: 220px;
+            height: 220px;
           }
         }
         @media (prefers-reduced-motion: reduce) {
