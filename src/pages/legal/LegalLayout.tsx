@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { FileText, Gavel, FilePen, ShieldAlert, LogOut } from "lucide-react";
+import { FileText, FilePen, LogOut } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -25,9 +25,7 @@ import { LegalTopTabs } from "@/components/legal/LegalTopTabs";
 
 const NAV = [
   { to: "/legal", label: "Case Files", icon: FileText, end: true },
-  { to: "/legal/classification", label: "Classification", icon: Gavel },
   { to: "/legal/draft-review", label: "Draft Review", icon: FilePen },
-  { to: "/legal/privilege-log", label: "Privilege Log", icon: ShieldAlert },
 ];
 
 function LegalSidebar() {
