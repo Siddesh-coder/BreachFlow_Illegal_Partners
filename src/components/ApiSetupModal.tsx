@@ -16,7 +16,7 @@ export function ApiSetupModal() {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/20 backdrop-blur-[2px] p-6 animate-fade-in">
       <div className="w-full max-w-[520px] bg-card border border-border shadow-card p-12 animate-fade-in">
-        <h2 className="font-serif text-[28px] leading-tight">Welcome to BreachGuard</h2>
+        <h2 className="font-serif text-[28px] leading-tight">Welcome to Breachflow</h2>
         <p className="mt-3 text-sm text-muted-foreground">
           Please enter your API keys to activate the platform.
         </p>
@@ -46,7 +46,7 @@ export function ApiSetupModal() {
           disabled={!gemini.trim() || !ldh.trim()}
           className="mt-10 w-full bg-primary text-primary-foreground py-3 text-xs uppercase tracking-[0.18em] hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded-sm"
         >
-          Activate BreachGuard
+          Activate Breachflow
         </button>
 
         <p className="mt-6 text-[11px] text-muted-foreground text-center">

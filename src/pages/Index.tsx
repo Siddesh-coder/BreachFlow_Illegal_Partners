@@ -103,7 +103,7 @@ const Index = () => {
             cursor: "pointer",
           }}
         >
-          BreachGuard
+          Breachflow
         </button>
         <div className="flex items-center gap-8">
           <button
@@ -389,7 +389,7 @@ const Index = () => {
                 marginBottom: 24,
               }}
             >
-              About BreachGuard
+              About Breachflow
             </div>
             <h2
               style={{
@@ -413,11 +413,11 @@ const Index = () => {
                 marginBottom: 20,
               }}
             >
-              BreachGuard was created at the Munich Hacking Legal 2026
+              Breachflow was created at the Munich Hacking Legal 2026
               hackathon in response to a real gap in EU compliance tooling.
               When a data breach occurs, organizations lose precious hours to
               confusion, scattered communication, and manual processes.
-              BreachGuard changes that — combining AI intelligence with EU
+              Breachflow changes that — combining AI intelligence with EU
               legal expertise to guide teams from discovery to notification
               with confidence.
             </p>
@@ -430,7 +430,7 @@ const Index = () => {
               }}
             >
               Built on the Otto Schmidt Legal Data Hub, every recommendation
-              BreachGuard makes is grounded in curated German and EU legal
+              Breachflow makes is grounded in curated German and EU legal
               content — not hallucination.
             </p>
           </div>
@@ -640,7 +640,7 @@ const Index = () => {
             }}
           >
             <span style={{ fontFamily: FONT_SERIF, fontSize: 16, color: COLORS.fg, marginRight: 12 }}>
-              BreachGuard
+              Breachflow
             </span>
             © 2026 Munich Hacking Legal
           </div>
