@@ -3,11 +3,8 @@ import { cn } from "@/lib/utils";
 
 const TABS = [
   { to: "/legal", label: "Overview", end: true },
-  { to: "/legal/indicators", label: "Indicators" },
-  { to: "/legal/knowledge", label: "Knowledge" },
   { to: "/legal/draft-review", label: "Drafts" },
   { to: "/legal/response-workflow", label: "Response Workflow" },
-  { to: "/legal/aria-reports", label: "ARIA Reports" },
 ];
 
 export function LegalTopTabs() {
