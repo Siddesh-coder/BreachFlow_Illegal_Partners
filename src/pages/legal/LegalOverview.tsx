@@ -113,6 +113,67 @@ const LegalOverview = () => {
           </button>
         </div>
 
+        {/* Brief case classification */}
+        {focus && (
+          <div className="bg-card border border-border shadow-card rounded-sm p-6">
+            <div className="flex items-start justify-between gap-4 mb-4">
+              <div>
+                <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                  Case classification — brief
+                </div>
+                <h2 className="font-serif text-xl mt-1">Indicator summary</h2>
+              </div>
+              <Link
+                to={`/legal/classification/${focus.id}`}
+                className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground inline-flex items-center gap-1 shrink-0 mt-1"
+              >
+                Open fact record <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+            <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
+              <div className="flex justify-between gap-4 border-b border-border/60 pb-2">
+                <dt className="text-muted-foreground text-[11px] uppercase tracking-[0.14em]">Category</dt>
+                <dd className="text-right">{focus.incidentCategory || "—"}</dd>
+              </div>
+              <div className="flex justify-between gap-4 border-b border-border/60 pb-2">
+                <dt className="text-muted-foreground text-[11px] uppercase tracking-[0.14em]">Severity</dt>
+                <dd className="text-right capitalize">{focus.severity}</dd>
+              </div>
+              <div className="flex justify-between gap-4 border-b border-border/60 pb-2">
+                <dt className="text-muted-foreground text-[11px] uppercase tracking-[0.14em]">Data types</dt>
+                <dd className="text-right">{focus.dataTypes.length ? focus.dataTypes.join(", ") : "—"}</dd>
+              </div>
+              <div className="flex justify-between gap-4 border-b border-border/60 pb-2">
+                <dt className="text-muted-foreground text-[11px] uppercase tracking-[0.14em]">Affected persons</dt>
+                <dd className="text-right">{focus.affectedCount?.toLocaleString() ?? "Unknown"}</dd>
+              </div>
+              <div className="flex justify-between gap-4 border-b border-border/60 pb-2">
+                <dt className="text-muted-foreground text-[11px] uppercase tracking-[0.14em]">Countries affected</dt>
+                <dd className="text-right">{focus.countries.length ? focus.countries.join(", ") : "—"}</dd>
+              </div>
+              <div className="flex justify-between gap-4 border-b border-border/60 pb-2">
+                <dt className="text-muted-foreground text-[11px] uppercase tracking-[0.14em]">Containment</dt>
+                <dd className="text-right">
+                  {focus.contained === true ? "Contained" : focus.contained === false ? "Not contained" : "Unknown"}
+                </dd>
+              </div>
+              {focus.nis2Sector && (
+                <div className="flex justify-between gap-4 border-b border-border/60 pb-2">
+                  <dt className="text-muted-foreground text-[11px] uppercase tracking-[0.14em]">NIS2 sector</dt>
+                  <dd className="text-right">{focus.nis2Sector}</dd>
+                </div>
+              )}
+              <div className="flex justify-between gap-4 border-b border-border/60 pb-2">
+                <dt className="text-muted-foreground text-[11px] uppercase tracking-[0.14em]">Cyber insurance</dt>
+                <dd className="text-right">{focus.cyberInsurance ? "Yes" : "No / unknown"}</dd>
+              </div>
+            </dl>
+            <p className="text-[11px] text-muted-foreground mt-4 italic">
+              Indicator-style fact summary. Legal classification verdict remains with Legal Counsel.
+            </p>
+          </div>
+        )}
+
         {/* Deadlines */}
         {focus && <DeadlinePanel incident={focus} />}
 
