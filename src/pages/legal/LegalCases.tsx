@@ -4,7 +4,7 @@ import { format, formatDistanceToNowStrict } from "date-fns";
 import { ArrowRight } from "lucide-react";
 import { useApp } from "@/state/AppContext";
 import { SeverityBadge } from "@/components/SeverityBadge";
-import { countMatched, deriveRegime } from "@/lib/indicators";
+
 import type { Incident } from "@/types/incident";
 import { cn } from "@/lib/utils";
 
