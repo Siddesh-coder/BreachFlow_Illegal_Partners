@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoMark from "@/assets/breachguard-mark.png";
+import logoMark from "@/assets/breachflow-mark.png";
 
 export function Wordmark({
   className = "",
@@ -18,7 +18,7 @@ export function Wordmark({
       {showMark && (
         <img
           src={logoMark}
-          alt="BreachGuard logo"
+          alt="Breachflow logo"
           width={size * 1.6}
           height={size * 1.6}
           style={{ width: size * 1.6, height: size * 1.6 }}
@@ -35,7 +35,7 @@ export function Wordmark({
           lineHeight: 1,
         }}
       >
-        BreachGuard
+        Breachflow
       </span>
     </Link>
   );
