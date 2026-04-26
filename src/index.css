@@ -54,9 +54,9 @@
     --sidebar-border: 36 18% 89%;
     --sidebar-ring: 0 0% 4%;
 
-    /* Typography — Royal serif (Cormorant Garamond) + clean sans (Inter) */
-    --font-serif: 'Jost', 'Inter', system-ui, sans-serif;
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
+    /* Typography — Lora serif headings + Poppins light body */
+    --font-serif: 'Lora', 'Jost', 'Inter', system-ui, serif;
+    --font-sans: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
 
     /* Heading accent — deep burgundy */
     --heading: 348 55% 24%;            /* #5E1A2A rich burgundy */
