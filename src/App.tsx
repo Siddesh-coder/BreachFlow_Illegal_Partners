@@ -47,6 +47,7 @@ const App = () => (
               <Route path="overview" element={<LegalOverview />} />
               <Route path="cases/:id" element={<LegalOverview />} />
               <Route path="classification" element={<LegalClassification />} />
+              <Route path="classification/:id" element={<LegalClassification />} />
               <Route path="draft-review" element={<LegalDraftReview />} />
               <Route path="privilege-log" element={<LegalPrivilegeLog />} />
               <Route path="knowledge" element={<LegalKnowledge />} />
