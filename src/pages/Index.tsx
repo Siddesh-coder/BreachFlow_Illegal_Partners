@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { ParticlesLayer } from "@/components/ParticlesLayer";
+import { AnimatedBlob } from "@/components/AnimatedBlob";
 import teamSiddesh from "@/assets/team-siddesh.png";
 import teamLiam from "@/assets/team-liam.png";
 import teamJacob from "@/assets/team-jacob.png";
@@ -143,28 +144,12 @@ const Index = () => {
           position: "relative",
           width: "100%",
           height: "100vh",
-          overflow: "hidden",
+          overflow: "visible",
           background: "#FFFFFF",
         }}
       >
-        {/* Purple orb */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            top: "-10%",
-            left: "50%",
-            width: 700,
-            height: 700,
-            background:
-              "radial-gradient(ellipse at center, rgba(154,145,252,0.85) 0%, rgba(154,145,252,0.5) 25%, rgba(154,145,252,0.2) 55%, transparent 75%)",
-            borderRadius: "50%",
-            filter: "blur(40px)",
-            animation: "orbPulse 6s ease-in-out infinite",
-            pointerEvents: "none",
-            zIndex: 0,
-          }}
-        />
+        {/* Animated 3D purple blob */}
+        <AnimatedBlob />
         {/* Particles */}
         <div
           style={{
