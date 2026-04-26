@@ -98,21 +98,6 @@ export function LegalDeadlineStrip() {
         </div>
       </div>
 
-      {/* Red warning banner */}
-      <div
-        className="border-b"
-        style={{ backgroundColor: "#FFF5F5", borderColor: "#F5C6C6" }}
-      >
-        <div className="px-6 py-2.5 flex items-start gap-2.5">
-          <span className="text-[14px] leading-none mt-0.5">⚖️</span>
-          <p
-            className="text-[13px] leading-snug"
-            style={{ color: "#8B1A1A", fontFamily: "var(--font-sans)" }}
-          >
-            Legal classification — notifiability, competent authority, exemption assessment — is reserved for Legal Counsel. This system presents indicators and available facts only.
-          </p>
-        </div>
-      </div>
     </div>
   );
 }
