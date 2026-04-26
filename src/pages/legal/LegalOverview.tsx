@@ -175,7 +175,7 @@ const LegalOverview = () => {
                   {(() => {
                     const hasPersonal = focus.dataTypes.length > 0;
                     const affected = focus.affectedCount ?? 0;
-                    const high = focus.severity === "high" || focus.severity === "critical";
+                    const high = focus.severity === "high";
                     if (!hasPersonal) {
                       return <span className="text-muted-foreground">Indicator: no personal data — likely not notifiable</span>;
                     }
