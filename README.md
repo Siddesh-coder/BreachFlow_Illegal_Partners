@@ -259,34 +259,8 @@ about facts, deferential to humans on judgment calls.
 
 ## Project Structure
 
-src/
-├── pages/
-│   ├── Landing.jsx          # Landing page with animated 3D blob
-│   ├── Auth.jsx             # Sign in / anonymous flow
-│   ├── Employee.jsx         # ARIA intake portal
-│   ├── DPO.jsx              # DPO operational dashboard
-│   ├── Legal.jsx            # Legal Counsel workspace
-│   ├── InfoSec.jsx          # Technical stream dashboard
-│   └── Executive.jsx        # EM approval dashboard
-├── components/
-│   ├── ARIAChat.jsx         # 10-question guided intake
-│   ├── IndicatorScoreboard  # GDPR/NIS2 criteria display
-│   ├── DeadlinePanel        # Multi-deadline countdown
-│   ├── ProcessEngine        # 10-process kanban
-│   ├── WorkflowGraph        # Interactive node diagram
-│   └── DraftPanel           # AI draft review + release
-├── data/
-│   ├── ariaSkillDocument.js # ARIA question guidelines
-│   ├── legalKnowledge.js    # GDPR knowledge base
-│   └── nis2Knowledge.js     # NIS2 Navigator knowledge base
-├── services/
-│   ├── legalDataHub.js      # Otto Schmidt API integration
-│   ├── sentinelAgent.js     # AI agent logic
-│   └── auth.js              # Firebase auth placeholder
-supabase/
-└── functions/
-└── ai-proxy/
-└── index.ts         # Gemini API proxy edge function
+<img width="530" height="638" alt="image" src="https://github.com/user-attachments/assets/e5c61db0-b570-4ee5-a5fb-d3fb41f29906" />
+
 
 ---
 
