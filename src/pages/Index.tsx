@@ -209,7 +209,17 @@ const Index = () => {
           >
             Handling Data Breaches
             <br />
-            in the Era of <em style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 500 }}>NewLaw</em>.
+            in the Era of <em style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontStyle: "italic",
+              fontWeight: 500,
+              fontSize: "1.18em",
+              letterSpacing: "-0.02em",
+              lineHeight: 1,
+              verticalAlign: "baseline",
+              marginLeft: "0.04em",
+              marginRight: "0.02em",
+            }}>NewLaw</em>.
           </h1>
           <p
             style={{
