@@ -75,7 +75,7 @@ const Employee = () => {
       {
         role: "user",
         content:
-          "[SYSTEM] Begin the intake. Greet the reporter briefly (one short paragraph), explain what you'll do, then ask your first question (when did they discover the incident?). Do not list all the questions up front.",
+          "[SYSTEM] Begin the scripted intake. Greet the reporter briefly (one short paragraph), explain that you'll ask a short series of questions, then ask question 1 from the scripted intake list (about when they first noticed something was wrong and how). Do not list all the questions up front. Ask only question 1.",
       },
     ];
     void streamAria(greetingPrompt);
