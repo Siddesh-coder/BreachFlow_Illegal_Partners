@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { FileDown, FolderOpen, FolderSearch, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { LegalDeadlineStrip } from "@/components/legal/LegalDeadlineStrip";
 import { DeadlinePanel } from "@/components/DeadlinePanel";
@@ -46,7 +46,11 @@ function pickFocusIncident(incidents: Incident[]): Incident | null {
 
 const LegalOverview = () => {
   const { incidents } = useApp();
-  const focus = useMemo(() => pickFocusIncident(incidents), [incidents]);
+  const { id } = useParams<{ id: string }>();
+  const focus = useMemo(() => {
+    if (id) return incidents.find((i) => i.id === id) ?? null;
+    return pickFocusIncident(incidents);
+  }, [incidents, id]);
 
   const handleExport = () => {
     toast({
