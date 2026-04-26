@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { Plus, Minus, Maximize2, X } from "lucide-react";
+import { Plus, Minus, Maximize2, X, FolderSearch } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
 type Stream = "LEGAL" | "TECHNICAL" | "LITIGATION" | "ADMIN";
@@ -493,6 +494,19 @@ function NodeModal({ node, onClose }: { node: NodeDef; onClose: () => void }) {
               ))}
             </div>
           </div>
+
+          <button
+            onClick={() =>
+              toast({
+                title: "Opening iManage",
+                description: `Launching workspace for "${node.title}".`,
+              })
+            }
+            className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] border border-border rounded-sm px-3 py-2 hover:bg-accent transition-colors"
+          >
+            <FolderSearch className="w-3.5 h-3.5" />
+            View documents in iManage
+          </button>
 
           <p className="text-[11px] italic text-muted-foreground">
             Legal classification reserved for Legal Counsel. This node represents a legal decision gate — the system presents indicators, not conclusions.
