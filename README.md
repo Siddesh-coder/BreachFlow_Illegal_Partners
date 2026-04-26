@@ -161,6 +161,24 @@ Hard gate: P5 containment may only begin after P4 forensic snapshot is complete.
 
 ---
 
+# Decision Matrix — GDPR Art. 33 / 34 and NIS2 § 32 BSIG-new
+## The RDG boundary
+German § 2 RDG reserves legal subsumption to qualified lawyers. A tool telling a Data Protection Officer "you must notify under Art. 33" performs that subsumption, which constitutes an unlicensed legal service. The DPO, while recognised under Art. 37 GDPR, is not a lawyer in the RDG sense and cannot receive a binding classification from software. Our system therefore stops one step short: it produces structured indicators with probability and severity scores, surfaces the relevant statutory anchors and case law, and hands the file to Legal Counsel for the final classification. This boundary also keeps the system outside Annex III No. 8a of the EU AI Act (administration of justice).
+## Two-axis matrix: probability × severity (per EDPB Guidelines 9/2022 Rn. 88)
+| Severity ↓ / Probability → | < 5 % remote | 5–25 % possible | 25–60 % plausible | 60–85 % likely | > 85 % near certain |
+|---|---|---|---|---|---|
+| **minor** | Doc Art. 33 (5) | Doc Art. 33 (5) | Authority Art. 33 | Authority Art. 33 | Authority Art. 33 |
+| **noticeable** (control loss, BGH VI ZR 10/24) | Doc Art. 33 (5) | Authority Art. 33 | non liquet — notify | Data subjects Art. 34 | Data subjects Art. 34 |
+| **substantial** (identity theft) | Authority Art. 33 | non liquet — notify | Data subjects Art. 34 | Data subjects Art. 34 | Data subjects Art. 34 |
+| **existential** (life, health, profession) | non liquet — notify | Data subjects Art. 34 | Data subjects Art. 34 | Data subjects Art. 34 | Data subjects Art. 34 |
+The probability tiers are calibrated against the 18 EDPB case examples (Guidelines 01/2021). The non-liquet corridor invokes EDPB Rn. 31 and the burden-shift in Art. 33 (1): when in doubt, the indication points toward notification. CJEU C-340/21 (NAP Bulgaria) confirms that even a founded fear of misuse constitutes damage under Art. 82.
+## NIS2 parallel track (§ 32 BSIG-new, in force since 6 Dec 2025)
+The matrix runs twice — once for GDPR, once for NIS2 — with both clocks ticking from minute one. For essential and important entities under §§ 28, 29 BSIG-new, a significant incident triggers three deadlines: 24h early warning, 72h notification, and a 1-month final report to the BSI. NIS2 thresholds are operational rather than personal-data-related, so a service disruption can trigger NIS2 obligations even where GDPR remains at documentation level.
+## Output
+The system produces two probability scores, two severity classifications, and one of four hand-off paths: A (documentation only), B (authority notification), C (both, with Art. 34 (3) exemption), D (both, direct notification). All outputs carry source attribution. The "confirm path" button is enabled only in the Counsel workspace, which protects the controller against exposure under § 43a BRAO, § 203 StGB, and § 38 BSIG-new.
+
+---
+
 ## Knowledge Sources
 
 BreachFlow's legal intelligence is grounded in three sources:
@@ -178,22 +196,7 @@ BreachFlow's legal intelligence is grounded in three sources:
    code/system audit, document drafting, compliance Q&A, and data flow review. Feeds 
    ARIA's question logic and boundaries.
 
----
 
-## EU Supervisory Authorities Directory
-
-| Country | Authority | Full Name |
-|---|---|---|
-| Germany | BfDI | Bundesbeauftragte für den Datenschutz |
-| France | CNIL | Commission Nationale de l'Informatique et des Libertés |
-| Italy | Garante | Garante per la protezione dei dati personali |
-| Spain | AEPD | Agencia Española de Protección de Datos |
-| Netherlands | AP | Autoriteit Persoonsgegevens |
-| Ireland | DPC | Data Protection Commission |
-| Sweden | IMY | Integritetsskyddsmyndigheten |
-| Poland | UODO | Urząd Ochrony Danych Osobowych |
-| Austria | DSB | Datenschutzbehörde |
-| Belgium | APD/GBA | Autorité de protection des données |
 
 ---
 
@@ -283,29 +286,6 @@ On first load, enter your API keys in the setup modal:
 
 ---
 
-## Scope
-
-**V1 (Hackathon Demo):**
-- EU scope: GDPR + NIS2 + German BSIG-neu
-- DE authority structure as initial buildout
-- One demo tenant
-
-**Out of Scope V1:**
-- US state breach notification laws
-- UK GDPR / DPA 2018
-- Switzerland revFADP
-- SEC Cybersecurity Disclosure Rules
-- Direct SIEM integration
-- Firebase auth (placeholder only)
-
-**V2 Roadmap:**
-- Multi-jurisdiction (UK, CH, US states)
-- SIEM/EDR connectors
-- Tabletop exercise mode
-- Insurer API integrations
-- Law firm partner mode
-
----
 
 ## Legal Disclaimer
 
