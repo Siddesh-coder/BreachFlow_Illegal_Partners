@@ -45,7 +45,7 @@ const App = () => (
             <Route path="/legal" element={<LegalLayout />}>
               <Route index element={<LegalCases />} />
               <Route path="overview" element={<LegalOverview />} />
-              <Route path="cases/:id" element={<LegalCaseDetail />} />
+              <Route path="cases/:id" element={<LegalOverview />} />
               <Route path="classification" element={<LegalClassification />} />
               <Route path="draft-review" element={<LegalDraftReview />} />
               <Route path="privilege-log" element={<LegalPrivilegeLog />} />
