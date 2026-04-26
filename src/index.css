@@ -166,18 +166,18 @@
   --secondary-foreground: 0 0% 4%;
   --muted: 252 40% 97%;
   --muted-foreground: 282 5% 43%;       /* #6B6570 */
-  --accent: 249 80% 67%;                /* #7B68EE muted purple */
-  --accent-foreground: 0 0% 100%;
+  --accent: 252 60% 96%;                /* faint purple tint for hover/bg */
+  --accent-foreground: 0 0% 4%;         /* dark text on faint purple */
   --border: 258 30% 94%;                /* #EEEBF5 */
   --input: 258 30% 94%;
-  --ring: 249 80% 67%;
+  --ring: 249 80% 67%;                  /* #7B68EE — focus ring only */
   --heading: 0 0% 4%;                   /* black headings */
 
   --sidebar-background: 0 0% 100%;
   --sidebar-foreground: 0 0% 4%;
   --sidebar-primary: 0 0% 4%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 252 50% 97%;
+  --sidebar-accent: 252 60% 96%;
   --sidebar-accent-foreground: 0 0% 4%;
   --sidebar-border: 258 30% 94%;
   --sidebar-ring: 249 80% 67%;
@@ -194,7 +194,7 @@
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(ellipse 60% 40% at 50% -10%, rgba(147, 112, 219, 0.35) 0%, rgba(167, 139, 250, 0.15) 40%, transparent 70%);
+  background: radial-gradient(ellipse 90% 55% at 50% -5%, rgba(147, 112, 219, 0.32) 0%, rgba(167, 139, 250, 0.18) 35%, rgba(167, 139, 250, 0.06) 60%, transparent 80%);
 }
 
 /* Make sure children render above the glow */
