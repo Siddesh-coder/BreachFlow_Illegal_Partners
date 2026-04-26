@@ -194,7 +194,7 @@
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(147, 112, 219, 0.15) 0%, transparent 60%);
+  background: radial-gradient(ellipse 60% 40% at 50% -10%, rgba(147, 112, 219, 0.35) 0%, rgba(167, 139, 250, 0.15) 40%, transparent 70%);
 }
 
 /* Make sure children render above the glow */
