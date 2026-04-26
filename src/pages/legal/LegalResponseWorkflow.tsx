@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Plus, Minus, Maximize2, X, FolderSearch } from "lucide-react";
+import { Plus, Minus, Maximize2, X, FolderSearch, PlusCircle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
