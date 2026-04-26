@@ -67,8 +67,6 @@ const LegalCases = () => {
 
       <div className="space-y-3">
         {sorted.map((i) => {
-          const r = deriveRegime(i, "gdpr_33");
-          const { matched, total } = countMatched(r.criteria);
           const status = caseStatusLabel(i);
           const dl = shortestDeadlineHours(i);
           const remaining = deadlineRemainingMs(i.discoveredAt, dl.hours);
