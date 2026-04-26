@@ -296,7 +296,7 @@ Return JSON with EXACTLY this shape:
 
   if (done) {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
+      <div className="app-light-shell min-h-screen bg-background flex flex-col">
         <header className="flex items-center justify-between px-10 py-8">
           <Wordmark size={20} />
           <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Confidential intake</span>
@@ -320,7 +320,7 @@ Return JSON with EXACTLY this shape:
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="app-light-shell min-h-screen bg-background flex flex-col">
       <header className="flex items-center justify-between px-10 py-4 border-b border-border sticky top-0 bg-background z-10">
         <Wordmark size={20} />
         <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Employee Portal</span>
