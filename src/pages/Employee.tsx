@@ -658,7 +658,25 @@ function AnswerCard({ step, answers, setAnswers, onAnswered, onSubmit, onEdit }:
 
 function AnswerShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-card border border-border rounded-sm p-4 mt-2 animate-fade-in">
+    <div
+      className="mt-3 p-5 animate-fade-in relative"
+      style={{
+        background:
+          "linear-gradient(180deg, #FFFFFF 0%, #FBF8F1 100%)",
+        border: "1px solid #E8DFC7",
+        borderRadius: "14px",
+        boxShadow:
+          "0 1px 0 rgba(255,255,255,0.9) inset, 0 12px 30px -18px rgba(94, 26, 42, 0.22)",
+      }}
+    >
+      <div
+        aria-hidden
+        className="absolute top-0 left-5 right-5 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, rgba(212,175,100,0.55) 50%, transparent 100%)",
+        }}
+      />
       {children}
     </div>
   );
@@ -677,10 +695,20 @@ function PrimaryAction({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="bg-primary text-primary-foreground text-[13px] uppercase tracking-[0.16em] px-4 h-9 inline-flex items-center gap-2 rounded-sm hover:bg-primary/90 disabled:opacity-30 transition-colors"
+      className="text-[12px] uppercase tracking-[0.22em] px-5 h-10 inline-flex items-center gap-2.5 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+      style={{
+        fontFamily: "'Lora', serif",
+        color: "#F5EFE2",
+        background:
+          "linear-gradient(135deg, #1a1a1a 0%, #2b1820 55%, #5E1A2A 100%)",
+        border: "1px solid rgba(212, 175, 100, 0.5)",
+        borderRadius: "10px",
+        boxShadow:
+          "0 1px 0 rgba(212,175,100,0.25) inset, 0 8px 18px -10px rgba(94, 26, 42, 0.55)",
+      }}
     >
       {children}
-      <ArrowUp className="w-3.5 h-3.5 rotate-90" />
+      <ArrowUp className="w-3.5 h-3.5 rotate-90" style={{ color: "#D4AF64" }} />
     </button>
   );
 }
@@ -695,7 +723,8 @@ function GhostAction({
   return (
     <button
       onClick={onClick}
-      className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
+      className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground transition-colors"
+      style={{ fontFamily: "'Lora', serif" }}
     >
       {children}
     </button>
@@ -715,12 +744,22 @@ function Chip({
     <button
       type="button"
       onClick={onClick}
-      className={cn(
-        "px-3 h-8 text-[12px] rounded-full border transition-colors",
-        active
-          ? "bg-primary text-primary-foreground border-primary"
-          : "bg-background border-border text-foreground hover:border-foreground/40",
-      )}
+      className="px-4 h-9 text-[12px] transition-all"
+      style={{
+        fontFamily: "'Lora', serif",
+        letterSpacing: "0.04em",
+        borderRadius: "999px",
+        background: active
+          ? "linear-gradient(135deg, #1a1a1a 0%, #2b1820 55%, #5E1A2A 100%)"
+          : "linear-gradient(180deg, #FFFFFF 0%, #FBF8F1 100%)",
+        color: active ? "#F5EFE2" : "#0A0A0A",
+        border: active
+          ? "1px solid rgba(212, 175, 100, 0.5)"
+          : "1px solid #E8DFC7",
+        boxShadow: active
+          ? "0 1px 0 rgba(212,175,100,0.25) inset, 0 6px 14px -8px rgba(94, 26, 42, 0.45)"
+          : "0 1px 0 rgba(255,255,255,0.9) inset",
+      }}
     >
       {children}
     </button>
