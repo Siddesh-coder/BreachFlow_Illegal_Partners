@@ -268,10 +268,6 @@ const Index = () => {
             0%, 100% { opacity: 0.2; }
             50% { opacity: 0.7; }
           }
-          @keyframes orbPulse {
-            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.85; }
-            50% { transform: translateX(-50%) scale(1.08); opacity: 1; }
-          }
         `}</style>
       </section>
 
