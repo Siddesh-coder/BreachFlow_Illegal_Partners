@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Plus, Minus, Maximize2, X, FolderSearch } from "lucide-react";
+import { Plus, Minus, Maximize2, X, FolderSearch, PlusCircle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
@@ -154,10 +154,26 @@ const ResponseWorkflow = () => {
 
   return (
     <div className="px-10 py-10 max-w-[1400px] mx-auto animate-fade-in">
-      <h1 className="font-serif text-[36px] leading-tight">Response Map</h1>
-      <p className="text-sm text-muted-foreground mt-2">
-        Complete incident response process. Click any node for involved parties and stream details.
-      </p>
+      <div className="flex items-start justify-between gap-6">
+        <div>
+          <h1 className="font-serif text-[36px] leading-tight">Response Map</h1>
+          <p className="text-sm text-muted-foreground mt-2">
+            Complete incident response process. Click any node for involved parties and stream details.
+          </p>
+        </div>
+        <button
+          onClick={() =>
+            toast({
+              title: "Add event",
+              description: "Mock action — event creation flow not wired up yet.",
+            })
+          }
+          className="shrink-0 mt-2 inline-flex items-center gap-2 px-4 py-2.5 bg-foreground text-background rounded-sm hover:opacity-90 transition-opacity text-[11px] uppercase tracking-[0.18em] font-semibold"
+        >
+          <PlusCircle className="w-4 h-4" />
+          Add event
+        </button>
+      </div>
 
       <div
         className={cn(
