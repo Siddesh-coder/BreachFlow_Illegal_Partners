@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 
 const TABS = [
   { to: "/legal", label: "Overview", end: true },
-  { to: "/legal/draft-review", label: "Drafts" },
   { to: "/legal/response-workflow", label: "Response Workflow" },
 ];
 
