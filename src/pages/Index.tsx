@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { ParticlesLayer } from "@/components/ParticlesLayer";
 import { AnimatedBlob } from "@/components/AnimatedBlob";
+import breachflowMark from "@/assets/breachflow-mark.png";
 import teamSiddesh from "@/assets/team-siddesh.png";
 import teamLiam from "@/assets/team-liam.png";
 import teamJacob from "@/assets/team-jacob.png";
@@ -101,8 +102,19 @@ const Index = () => {
             background: "transparent",
             border: "none",
             cursor: "pointer",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 10,
+            padding: 0,
           }}
         >
+          <img
+            src={breachflowMark}
+            alt="Breachflow logo"
+            width={28}
+            height={28}
+            style={{ width: 28, height: 28, objectFit: "contain" }}
+          />
           Breachflow
         </button>
         <div className="flex items-center gap-8">
@@ -637,8 +649,19 @@ const Index = () => {
               fontFamily: FONT_SANS,
               fontSize: 12,
               color: COLORS.body,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
             }}
           >
+            <img
+              src={breachflowMark}
+              alt="Breachflow logo"
+              width={22}
+              height={22}
+              style={{ width: 22, height: 22, objectFit: "contain" }}
+              loading="lazy"
+            />
             <span style={{ fontFamily: FONT_SERIF, fontSize: 16, color: COLORS.fg, marginRight: 12 }}>
               Breachflow
             </span>
