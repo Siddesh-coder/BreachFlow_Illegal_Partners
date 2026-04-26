@@ -58,7 +58,7 @@ export function ParticlesLayer({ className = "" }: { className?: string }) {
         renderer.setClearColor(0x000000, 0);
         container.appendChild(renderer.domElement);
 
-        const COUNT = 120;
+        const COUNT = 60;
         const positions = new Float32Array(COUNT * 3);
         const velocities = new Float32Array(COUNT * 3);
         for (let i = 0; i < COUNT; i++) {
@@ -74,10 +74,10 @@ export function ParticlesLayer({ className = "" }: { className?: string }) {
         geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
         const material = new THREE.PointsMaterial({
-          color: 0xf0ede8,
+          color: 0x9a91fc,
           size: 0.18,
           transparent: true,
-          opacity: 0.65,
+          opacity: 0.2,
           sizeAttenuation: true,
         });
 

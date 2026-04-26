@@ -635,8 +635,8 @@ const Index = () => {
       {/* FOOTER */}
       <footer
         style={{
-          background: "#060606",
-          borderTop: "1px solid #141414",
+          background: "#FAFAFB",
+          borderTop: `1px solid ${COLORS.border}`,
           padding: 32,
         }}
       >
