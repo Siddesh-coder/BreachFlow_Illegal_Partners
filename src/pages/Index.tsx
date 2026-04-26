@@ -13,21 +13,16 @@ const TEAM_MEMBERS = [
   { name: "Leo", role: "Legal Counsel", bio: "Lawyer", photo: teamLeo },
 ];
 
-// Primary: user-requested Coverr URL. Fallback: hosted sample (Coverr URL currently 301s).
-const VIDEO_URL =
-  "https://cdn.coverr.co/videos/coverr-typing-on-a-laptop-in-a-dark-room-7185/1080p.mp4";
-const VIDEO_FALLBACK =
-  "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_5MB.mp4";
-
 const COLORS = {
-  bg: "#080808",
-  bgAlt: "#0D0D0D",
-  card: "#111111",
-  border: "#1E1E1E",
-  fg: "#F0EDE8",
-  muted: "#A09A92",
-  body: "#6B6560",
-  faint: "#5A5550",
+  bg: "#FFFFFF",
+  bgAlt: "#FAFAFB",
+  card: "#FFFFFF",
+  border: "#EEEBF5",
+  fg: "#0A0A0A",
+  muted: "#6B6570",
+  body: "#6B6570",
+  faint: "#9B9590",
+  accent: "#9A91FC",
 };
 
 const FONT_SERIF = "'Lora', serif";
