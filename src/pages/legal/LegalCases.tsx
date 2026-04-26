@@ -80,9 +80,9 @@ const LegalCases = () => {
               to={`/legal/cases/${i.id}`}
               className="block bg-card border border-border shadow-card rounded-sm p-5 hover:bg-accent transition-colors"
             >
-              <div className="grid grid-cols-1 md:grid-cols-[160px_120px_1fr_220px_180px_40px] gap-4 items-center">
-                <div>
-                  <div className="text-xs font-mono text-muted-foreground">#{i.id}</div>
+              <div className="grid grid-cols-1 md:grid-cols-[120px_90px_1fr_auto_auto_16px] gap-4 items-center min-w-0">
+                <div className="min-w-0">
+                  <div className="text-xs font-mono text-muted-foreground truncate">#{i.id}</div>
                   <div className="text-[11px] text-muted-foreground mt-1">
                     {format(new Date(i.reportedAt), "d LLL yyyy")}
                   </div>
@@ -90,31 +90,28 @@ const LegalCases = () => {
 
                 <SeverityBadge severity={i.severity} />
 
-                <div className="text-sm">
-                  <div className="font-serif text-[15px] leading-snug">
-                    {matched} / {total} Art. 33 criteria matched
-                  </div>
-                  <div className="text-[11px] text-muted-foreground mt-1 truncate">
+                <div className="text-sm min-w-0">
+                  <div className="text-[13px] text-foreground leading-snug truncate">
                     {i.aiSummary}
                   </div>
                 </div>
 
                 <span
                   className={cn(
-                    "text-[10px] uppercase tracking-[0.18em] border rounded-sm px-2 py-1 w-fit",
+                    "text-[10px] uppercase tracking-[0.18em] border rounded-sm px-2 py-1 w-fit whitespace-nowrap",
                     status.cls,
                   )}
                 >
                   {status.label}
                 </span>
 
-                <div>
+                <div className="text-right whitespace-nowrap">
                   <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                     {dl.label}
                   </div>
                   <div
                     className={cn(
-                      "mt-1 text-sm tabular-nums",
+                      "mt-1 text-[12px] tabular-nums",
                       expired ? "text-destructive" : "text-foreground",
                     )}
                   >
@@ -122,7 +119,7 @@ const LegalCases = () => {
                   </div>
                 </div>
 
-                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0" />
               </div>
             </Link>
           );
