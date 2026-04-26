@@ -167,6 +167,30 @@ const LegalOverview = () => {
                 <dt className="text-muted-foreground text-[11px] uppercase tracking-[0.14em]">Cyber insurance</dt>
                 <dd className="text-right">{focus.cyberInsurance ? "Yes" : "No / unknown"}</dd>
               </div>
+              <div className="flex justify-between gap-4 border-b border-border/60 pb-2 md:col-span-2">
+                <dt className="text-muted-foreground text-[11px] uppercase tracking-[0.14em]">
+                  Notification necessary? <span className="normal-case tracking-normal">(GDPR Art. 33/34)</span>
+                </dt>
+                <dd className="text-right">
+                  {(() => {
+                    const hasPersonal = focus.dataTypes.length > 0;
+                    const affected = focus.affectedCount ?? 0;
+                    const high = focus.severity === "high" || focus.severity === "critical";
+                    if (!hasPersonal) {
+                      return <span className="text-muted-foreground">Indicator: no personal data — likely not notifiable</span>;
+                    }
+                    if (high || affected > 0) {
+                      return (
+                        <span>
+                          <span className="text-[#8B1A1A] font-medium">Indicator: Art. 33 supervisory authority likely required</span>
+                          {high && <span className="text-muted-foreground"> · Art. 34 data subjects possible</span>}
+                        </span>
+                      );
+                    }
+                    return <span className="text-muted-foreground">Indicator: facts insufficient — Legal review required</span>;
+                  })()}
+                </dd>
+              </div>
             </dl>
             <p className="text-[11px] text-muted-foreground mt-4 italic">
               Indicator-style fact summary. Legal classification verdict remains with Legal Counsel.
