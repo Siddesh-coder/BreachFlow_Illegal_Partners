@@ -41,8 +41,8 @@ export const AnimatedBlob = () => {
           position: absolute;
           top: 5%;
           left: 50%;
-          width: 600px;
-          height: 600px;
+          width: 400px;
+          height: 400px;
           z-index: 0;
           pointer-events: none;
           transform: translateX(-50%) translateY(var(--scroll-y, 0px));
@@ -64,8 +64,8 @@ export const AnimatedBlob = () => {
         }
         @media (max-width: 768px) {
           .animated-blob-wrapper {
-            width: 400px;
-            height: 400px;
+            width: 280px;
+            height: 280px;
           }
         }
         @media (prefers-reduced-motion: reduce) {
