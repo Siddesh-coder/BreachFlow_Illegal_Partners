@@ -54,10 +54,11 @@ function CtaButton({
         padding: "14px 32px",
         borderRadius: 2,
         background: "transparent",
+        textDecoration: "none",
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLElement).style.background = COLORS.fg;
-        (e.currentTarget as HTMLElement).style.color = COLORS.bg;
+        (e.currentTarget as HTMLElement).style.color = "#FFFFFF";
       }}
       onMouseLeave={(e) => {
         (e.currentTarget as HTMLElement).style.background = "transparent";
@@ -82,8 +83,13 @@ const Index = () => {
     <div style={{ background: COLORS.bg, color: COLORS.fg, minHeight: "100vh" }}>
       {/* NAVBAR */}
       <nav
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6"
-        style={{ background: "transparent" }}
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5"
+        style={{
+          background: "rgba(255,255,255,0.85)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          borderBottom: `1px solid ${COLORS.border}`,
+        }}
       >
         <button
           onClick={() => smoothScrollTo("hero")}
@@ -138,42 +144,25 @@ const Index = () => {
           width: "100%",
           height: "100vh",
           overflow: "hidden",
+          background: "#FFFFFF",
         }}
       >
-        {/* Video background */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          onError={(e) => {
-            const v = e.currentTarget;
-            if (!v.dataset.fallback) {
-              v.dataset.fallback = "1";
-              v.src = VIDEO_FALLBACK;
-              v.load();
-              v.play().catch(() => {});
-            }
-          }}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            zIndex: 0,
-          }}
-        >
-          <source src={VIDEO_URL} type="video/mp4" />
-        </video>
-        {/* Dark overlay */}
+        {/* Purple orb */}
         <div
+          aria-hidden="true"
           style={{
             position: "absolute",
-            inset: 0,
-            background: "rgba(8, 8, 8, 0.72)",
-            zIndex: 1,
+            top: "-10%",
+            left: "50%",
+            width: 700,
+            height: 700,
+            background:
+              "radial-gradient(ellipse at center, rgba(154,145,252,0.85) 0%, rgba(154,145,252,0.5) 25%, rgba(154,145,252,0.2) 55%, transparent 75%)",
+            borderRadius: "50%",
+            filter: "blur(40px)",
+            animation: "orbPulse 6s ease-in-out infinite",
+            pointerEvents: "none",
+            zIndex: 0,
           }}
         />
         {/* Particles */}
@@ -181,7 +170,7 @@ const Index = () => {
           style={{
             position: "absolute",
             inset: 0,
-            zIndex: 2,
+            zIndex: 1,
             pointerEvents: "none",
           }}
         >
@@ -203,8 +192,9 @@ const Index = () => {
               fontSize: 11,
               textTransform: "uppercase",
               letterSpacing: "3px",
-              color: COLORS.muted,
+              color: COLORS.accent,
               marginBottom: 28,
+              fontWeight: 500,
             }}
           >
             EU GDPR Compliance Platform
@@ -228,10 +218,11 @@ const Index = () => {
             style={{
               fontFamily: FONT_SANS,
               fontSize: 17,
-              color: COLORS.body,
+              color: COLORS.muted,
               maxWidth: 520,
               margin: "28px auto 0",
               lineHeight: 1.6,
+              fontWeight: 300,
             }}
           >
             An AI-guided platform for EU-compliant incident response. Built for
@@ -291,6 +282,10 @@ const Index = () => {
           @keyframes scroll-fade {
             0%, 100% { opacity: 0.2; }
             50% { opacity: 0.7; }
+          }
+          @keyframes orbPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.85; }
+            50% { transform: translateX(-50%) scale(1.08); opacity: 1; }
           }
         `}</style>
       </section>
