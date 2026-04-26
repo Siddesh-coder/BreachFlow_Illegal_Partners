@@ -291,7 +291,13 @@ const Index = () => {
       </section>
 
       {/* SECTION 2 — FEATURE CARDS */}
-      <section style={{ background: COLORS.bg, padding: "120px 24px" }}>
+      <section
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 40% at 50% 0%, rgba(154,145,252,0.08) 0%, transparent 60%), #FFFFFF",
+          padding: "120px 24px",
+        }}
+      >
         <div
           style={{
             maxWidth: 1000,
@@ -320,11 +326,19 @@ const Index = () => {
           ].map((c) => (
             <div
               key={c.n}
+              className="transition-shadow duration-300"
               style={{
                 background: COLORS.card,
                 border: `1px solid ${COLORS.border}`,
                 padding: 36,
                 borderRadius: 4,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  "0 4px 20px rgba(154,145,252,0.15)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow = "none";
               }}
             >
               <div
@@ -332,8 +346,9 @@ const Index = () => {
                   fontFamily: FONT_SANS,
                   fontSize: 11,
                   letterSpacing: "2px",
-                  color: COLORS.faint,
+                  color: COLORS.accent,
                   marginBottom: 18,
+                  fontWeight: 500,
                 }}
               >
                 {c.n}
@@ -343,7 +358,7 @@ const Index = () => {
                   fontFamily: FONT_SERIF,
                   fontSize: 22,
                   color: COLORS.fg,
-                  fontWeight: 400,
+                  fontWeight: 500,
                   margin: 0,
                   marginBottom: 14,
                 }}
@@ -357,6 +372,7 @@ const Index = () => {
                   color: COLORS.body,
                   lineHeight: 1.7,
                   margin: 0,
+                  fontWeight: 300,
                 }}
               >
                 {c.body}
