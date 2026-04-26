@@ -536,8 +536,34 @@ const Employee = () => {
 
 function AriaBubble({ content }: { content: string }) {
   return (
-    <div className="flex">
-      <div className="max-w-[85%] bg-muted text-foreground text-[15px] leading-relaxed px-4 py-3 rounded-sm animate-fade-in">
+    <div className="flex items-start gap-3 animate-fade-in">
+      <div
+        className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[10px] uppercase tracking-[0.18em]"
+        style={{
+          background:
+            "linear-gradient(135deg, #FFFFFF 0%, #F6F2EA 100%)",
+          border: "1px solid #E8E0CC",
+          color: "#7A5C1A",
+          fontFamily: "'Lora', serif",
+          letterSpacing: "0.14em",
+          boxShadow: "0 1px 2px rgba(94, 26, 42, 0.06)",
+        }}
+        aria-hidden
+      >
+        A
+      </div>
+      <div
+        className="max-w-[82%] text-foreground text-[15px] leading-[1.7] px-5 py-3.5 relative"
+        style={{
+          fontFamily: "'Lora', serif",
+          background:
+            "linear-gradient(180deg, #FBF8F1 0%, #F5EFE2 100%)",
+          border: "1px solid #E8DFC7",
+          borderRadius: "14px 14px 14px 2px",
+          boxShadow:
+            "0 1px 0 rgba(255,255,255,0.7) inset, 0 6px 18px -10px rgba(94, 26, 42, 0.18)",
+        }}
+      >
         <RenderInlineMarkdown text={content} />
       </div>
     </div>
@@ -546,8 +572,22 @@ function AriaBubble({ content }: { content: string }) {
 
 function UserBubble({ content }: { content: string }) {
   return (
-    <div className="flex justify-end">
-      <div className="max-w-[85%] bg-primary text-primary-foreground text-[14px] leading-relaxed px-4 py-3 rounded-sm animate-fade-in whitespace-pre-wrap">
+    <div className="flex justify-end animate-fade-in">
+      <div
+        className="max-w-[82%] text-[14px] leading-[1.65] px-5 py-3.5 whitespace-pre-wrap"
+        style={{
+          color: "#F5EFE2",
+          background:
+            "linear-gradient(135deg, #1a1a1a 0%, #2b1820 55%, #5E1A2A 100%)",
+          border: "1px solid rgba(212, 175, 100, 0.35)",
+          borderRadius: "14px 14px 2px 14px",
+          fontFamily: "'Poppins', sans-serif",
+          fontWeight: 300,
+          letterSpacing: "0.01em",
+          boxShadow:
+            "0 1px 0 rgba(212,175,100,0.18) inset, 0 8px 22px -12px rgba(94, 26, 42, 0.45)",
+        }}
+      >
         {content}
       </div>
     </div>
