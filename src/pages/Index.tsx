@@ -1,6 +1,17 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { ParticlesLayer } from "@/components/ParticlesLayer";
+import teamSiddesh from "@/assets/team-siddesh.png";
+import teamLiam from "@/assets/team-liam.png";
+import teamJacob from "@/assets/team-jacob.png";
+import teamLeo from "@/assets/team-leo.png";
+
+const TEAM_MEMBERS = [
+  { name: "Siddesh", role: "Engineering", bio: "M.Sc Mechatronics, Robotics & Biomechanics", photo: teamSiddesh },
+  { name: "Liam", role: "Legal", bio: "Law student", photo: teamLiam },
+  { name: "Jacob", role: "Research", bio: "B.Sc Physics", photo: teamJacob },
+  { name: "Leo", role: "Legal Counsel", bio: "Lawyer", photo: teamLeo },
+];
 
 // Primary: user-requested Coverr URL. Fallback: hosted sample (Coverr URL currently 301s).
 const VIDEO_URL =
@@ -511,9 +522,9 @@ const Index = () => {
               gap: 24,
             }}
           >
-            {[1, 2, 3, 4].map((i) => (
+            {TEAM_MEMBERS.map((member) => (
               <div
-                key={i}
+                key={member.name}
                 style={{
                   background: COLORS.card,
                   border: `1px solid ${COLORS.border}`,
@@ -524,20 +535,24 @@ const Index = () => {
               >
                 <div
                   style={{
-                    width: 80,
-                    height: 80,
+                    width: 96,
+                    height: 96,
                     borderRadius: "50%",
-                    background: COLORS.border,
                     margin: "0 auto 20px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontFamily: FONT_SERIF,
-                    fontSize: 24,
-                    color: COLORS.muted,
+                    overflow: "hidden",
+                    border: `1px solid ${COLORS.border}`,
                   }}
                 >
-                  TM
+                  <img
+                    src={member.photo}
+                    alt={`${member.name} — ${member.role}`}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
                 </div>
                 <div
                   style={{
@@ -547,7 +562,7 @@ const Index = () => {
                     marginBottom: 8,
                   }}
                 >
-                  Team Member
+                  {member.name}
                 </div>
                 <div
                   style={{
@@ -559,7 +574,7 @@ const Index = () => {
                     marginBottom: 12,
                   }}
                 >
-                  Role
+                  {member.role}
                 </div>
                 <div
                   style={{
@@ -569,7 +584,7 @@ const Index = () => {
                     lineHeight: 1.6,
                   }}
                 >
-                  Background and expertise
+                  {member.bio}
                 </div>
               </div>
             ))}
