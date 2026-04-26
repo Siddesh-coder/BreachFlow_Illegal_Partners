@@ -2,9 +2,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const TABS = [
-  { key: "overview", label: "Overview", basePath: "/legal/overview", matches: ["/legal/overview", "/legal/cases/"] },
+  { key: "overview", label: "Overview", basePath: "/legal/overview", matches: ["/legal/overview", "/legal/cases/", "/legal/classification"] },
   { key: "response-workflow", label: "Response Map", basePath: "/legal/response-workflow", matches: ["/legal/response-workflow"] },
-  { key: "classification", label: "Classification", basePath: "/legal/classification", matches: ["/legal/classification"] },
 ];
 
 export function LegalTopTabs() {
