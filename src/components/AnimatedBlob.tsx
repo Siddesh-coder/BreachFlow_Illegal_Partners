@@ -39,10 +39,10 @@ export const AnimatedBlob = () => {
         }
         .animated-blob-wrapper {
           position: absolute;
-          top: 5%;
+          top: 18%;
           left: 50%;
-          width: 400px;
-          height: 400px;
+          width: 320px;
+          height: 320px;
           z-index: 0;
           pointer-events: none;
           transform: translateX(-50%) translateY(var(--scroll-y, 0px));
