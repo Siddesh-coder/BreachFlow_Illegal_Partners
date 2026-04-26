@@ -203,6 +203,13 @@
   z-index: 1;
 }
 
+/* Sidebar: transparent so the purple orb glow bleeds through */
+.app-light-shell [data-sidebar="sidebar"],
+.app-light-shell aside[data-sidebar],
+.app-light-shell .bg-sidebar {
+  background-color: transparent !important;
+}
+
 /* Replace gold accent (#c9a96e and variants) with #9A91FC inside shell */
 .app-light-shell [style*="#c9a96e"],
 .app-light-shell [style*="#C9A96E"],
