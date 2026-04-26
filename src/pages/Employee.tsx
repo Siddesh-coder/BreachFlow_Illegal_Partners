@@ -449,12 +449,28 @@ const Employee = () => {
         <div className="flex flex-col" style={{ height: "calc(100vh - 140px)" }}>
           <div className="flex items-end justify-between mb-4 shrink-0">
             <div>
-              <div className="font-serif text-xl leading-none">ARIA</div>
-              <div className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground mt-1.5">
+              <div
+                className="font-serif text-2xl leading-none"
+                style={{
+                  fontFamily: "'Lora', serif",
+                  background:
+                    "linear-gradient(135deg, #0A0A0A 0%, #5E1A2A 70%, #8B6B2E 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  letterSpacing: "0.04em",
+                }}
+              >
+                ARIA
+              </div>
+              <div
+                className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground mt-2"
+                style={{ fontFamily: "'Lora', serif" }}
+              >
                 AI Breach Response Agent · Guided Intake
               </div>
             </div>
-            <div className="text-[11px]">
+            <div className="text-[11px]" style={{ fontFamily: "'Lora', serif", letterSpacing: "0.04em" }}>
               {isAnonymous ? (
                 <span className="text-warning">Reporting anonymously</span>
               ) : user ? (
@@ -466,17 +482,25 @@ const Employee = () => {
           </div>
 
           {/* progress strip */}
-          <div className="flex items-center gap-1 mb-3 shrink-0">
+          <div className="flex items-center gap-1.5 mb-4 shrink-0">
             {Array.from({ length: 10 }).map((_, i) => (
               <div
                 key={i}
-                className={cn(
-                  "h-[3px] flex-1 rounded-full transition-colors",
-                  i < progressIdx ? "bg-primary" : i === progressIdx ? "bg-primary/40" : "bg-border",
-                )}
+                className="h-[3px] flex-1 rounded-full transition-all"
+                style={{
+                  background:
+                    i < progressIdx
+                      ? "linear-gradient(90deg, #5E1A2A 0%, #D4AF64 100%)"
+                      : i === progressIdx
+                      ? "rgba(94, 26, 42, 0.35)"
+                      : "#E8DFC7",
+                }}
               />
             ))}
-            <span className="ml-3 text-[10px] uppercase tracking-[0.16em] text-muted-foreground tabular-nums">
+            <span
+              className="ml-3 text-[10px] uppercase tracking-[0.22em] text-muted-foreground tabular-nums"
+              style={{ fontFamily: "'Lora', serif" }}
+            >
               {Math.min(progressIdx + 1, 10)} / 10
             </span>
           </div>
@@ -536,8 +560,34 @@ const Employee = () => {
 
 function AriaBubble({ content }: { content: string }) {
   return (
-    <div className="flex">
-      <div className="max-w-[85%] bg-muted text-foreground text-[15px] leading-relaxed px-4 py-3 rounded-sm animate-fade-in">
+    <div className="flex items-start gap-3 animate-fade-in">
+      <div
+        className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[10px] uppercase tracking-[0.18em]"
+        style={{
+          background:
+            "linear-gradient(135deg, #FFFFFF 0%, #F6F2EA 100%)",
+          border: "1px solid #E8E0CC",
+          color: "#7A5C1A",
+          fontFamily: "'Lora', serif",
+          letterSpacing: "0.14em",
+          boxShadow: "0 1px 2px rgba(94, 26, 42, 0.06)",
+        }}
+        aria-hidden
+      >
+        A
+      </div>
+      <div
+        className="max-w-[82%] text-foreground text-[15px] leading-[1.7] px-5 py-3.5 relative"
+        style={{
+          fontFamily: "'Lora', serif",
+          background:
+            "linear-gradient(180deg, #FBF8F1 0%, #F5EFE2 100%)",
+          border: "1px solid #E8DFC7",
+          borderRadius: "14px 14px 14px 2px",
+          boxShadow:
+            "0 1px 0 rgba(255,255,255,0.7) inset, 0 6px 18px -10px rgba(94, 26, 42, 0.18)",
+        }}
+      >
         <RenderInlineMarkdown text={content} />
       </div>
     </div>
@@ -546,8 +596,22 @@ function AriaBubble({ content }: { content: string }) {
 
 function UserBubble({ content }: { content: string }) {
   return (
-    <div className="flex justify-end">
-      <div className="max-w-[85%] bg-primary text-primary-foreground text-[14px] leading-relaxed px-4 py-3 rounded-sm animate-fade-in whitespace-pre-wrap">
+    <div className="flex justify-end animate-fade-in">
+      <div
+        className="max-w-[82%] text-[14px] leading-[1.65] px-5 py-3.5 whitespace-pre-wrap"
+        style={{
+          color: "#F5EFE2",
+          background:
+            "linear-gradient(135deg, #1a1a1a 0%, #2b1820 55%, #5E1A2A 100%)",
+          border: "1px solid rgba(212, 175, 100, 0.35)",
+          borderRadius: "14px 14px 2px 14px",
+          fontFamily: "'Poppins', sans-serif",
+          fontWeight: 300,
+          letterSpacing: "0.01em",
+          boxShadow:
+            "0 1px 0 rgba(212,175,100,0.18) inset, 0 8px 22px -12px rgba(94, 26, 42, 0.45)",
+        }}
+      >
         {content}
       </div>
     </div>
@@ -618,7 +682,25 @@ function AnswerCard({ step, answers, setAnswers, onAnswered, onSubmit, onEdit }:
 
 function AnswerShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-card border border-border rounded-sm p-4 mt-2 animate-fade-in">
+    <div
+      className="mt-3 p-5 animate-fade-in relative"
+      style={{
+        background:
+          "linear-gradient(180deg, #FFFFFF 0%, #FBF8F1 100%)",
+        border: "1px solid #E8DFC7",
+        borderRadius: "14px",
+        boxShadow:
+          "0 1px 0 rgba(255,255,255,0.9) inset, 0 12px 30px -18px rgba(94, 26, 42, 0.22)",
+      }}
+    >
+      <div
+        aria-hidden
+        className="absolute top-0 left-5 right-5 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, rgba(212,175,100,0.55) 50%, transparent 100%)",
+        }}
+      />
       {children}
     </div>
   );
@@ -637,10 +719,20 @@ function PrimaryAction({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="bg-primary text-primary-foreground text-[13px] uppercase tracking-[0.16em] px-4 h-9 inline-flex items-center gap-2 rounded-sm hover:bg-primary/90 disabled:opacity-30 transition-colors"
+      className="text-[12px] uppercase tracking-[0.22em] px-5 h-10 inline-flex items-center gap-2.5 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+      style={{
+        fontFamily: "'Lora', serif",
+        color: "#F5EFE2",
+        background:
+          "linear-gradient(135deg, #1a1a1a 0%, #2b1820 55%, #5E1A2A 100%)",
+        border: "1px solid rgba(212, 175, 100, 0.5)",
+        borderRadius: "10px",
+        boxShadow:
+          "0 1px 0 rgba(212,175,100,0.25) inset, 0 8px 18px -10px rgba(94, 26, 42, 0.55)",
+      }}
     >
       {children}
-      <ArrowUp className="w-3.5 h-3.5 rotate-90" />
+      <ArrowUp className="w-3.5 h-3.5 rotate-90" style={{ color: "#D4AF64" }} />
     </button>
   );
 }
@@ -655,7 +747,8 @@ function GhostAction({
   return (
     <button
       onClick={onClick}
-      className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
+      className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground transition-colors"
+      style={{ fontFamily: "'Lora', serif" }}
     >
       {children}
     </button>
@@ -675,12 +768,22 @@ function Chip({
     <button
       type="button"
       onClick={onClick}
-      className={cn(
-        "px-3 h-8 text-[12px] rounded-full border transition-colors",
-        active
-          ? "bg-primary text-primary-foreground border-primary"
-          : "bg-background border-border text-foreground hover:border-foreground/40",
-      )}
+      className="px-4 h-9 text-[12px] transition-all"
+      style={{
+        fontFamily: "'Lora', serif",
+        letterSpacing: "0.04em",
+        borderRadius: "999px",
+        background: active
+          ? "linear-gradient(135deg, #1a1a1a 0%, #2b1820 55%, #5E1A2A 100%)"
+          : "linear-gradient(180deg, #FFFFFF 0%, #FBF8F1 100%)",
+        color: active ? "#F5EFE2" : "#0A0A0A",
+        border: active
+          ? "1px solid rgba(212, 175, 100, 0.5)"
+          : "1px solid #E8DFC7",
+        boxShadow: active
+          ? "0 1px 0 rgba(212,175,100,0.25) inset, 0 6px 14px -8px rgba(94, 26, 42, 0.45)"
+          : "0 1px 0 rgba(255,255,255,0.9) inset",
+      }}
     >
       {children}
     </button>
